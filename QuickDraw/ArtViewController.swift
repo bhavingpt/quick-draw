@@ -14,15 +14,19 @@ class ArtViewController: UIViewController {
     @IBOutlet weak var endTurnButton: UIButton!
     @IBOutlet weak var trophyOne: UIButton!
     @IBOutlet weak var trophyTwo: UIButton!
+    @IBOutlet weak var toolButton: UIButton!
+    
+    let max_length: CGFloat = 300.0
+    let erase_penalty: CGFloat = 1.5
+    var strokeWidth: CGFloat = 5.0
+    var eraseWidth: CGFloat = 15.0
     
     var last = CGPoint.zero
     var swiped = false
-    let max_length: CGFloat = 300.0
     var remaining: CGFloat!
     
     var isDrawing = true
-    var strokeWidth: CGFloat = 5.0
- 
+    
     var colorOne = UIColor(red: 0, green: 0.5, blue: 0.01, alpha: 1.0)
     var colorTwo = UIColor(red: 0.5, green: 0, blue: 0.5, alpha: 1.0)
     var colors: [UIColor]!
@@ -52,7 +56,11 @@ class ArtViewController: UIViewController {
     }
     
     func drawLines(from: CGPoint, to: CGPoint) {
-        let dist = distance(from, to)
+        var dist = distance(from, to)
+        if !isDrawing {
+            dist *= erase_penalty
+        }
+        
         if remaining > dist {
             remaining = remaining - dist
             
@@ -65,8 +73,14 @@ class ArtViewController: UIViewController {
             
             context?.setBlendMode(CGBlendMode.normal)
             context?.setLineCap(CGLineCap.round)
-            context?.setLineWidth(strokeWidth)
-            context?.setStrokeColor(currentColor.cgColor)
+            
+            if isDrawing {
+                context?.setLineWidth(strokeWidth)
+                context?.setStrokeColor(currentColor.cgColor)
+            } else {
+                context?.setLineWidth(eraseWidth)
+                context?.setStrokeColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1.0).cgColor)
+            }
             
             context?.strokePath()
             
@@ -95,11 +109,22 @@ class ArtViewController: UIViewController {
         self.imageView.image = nil
     }
     
+    @IBAction func switchTool(_ sender: UIButton) {
+        isDrawing = !isDrawing
+        if (isDrawing) {
+            toolButton.setImage(#imageLiteral(resourceName: "EraserIcon"), for: UIControlState.normal)
+        } else {
+            toolButton.setImage(#imageLiteral(resourceName: "paintBrush"), for: UIControlState.normal)
+        }
+    }
+    
     @IBAction func endTurn(_ sender: UIButton) {
         turn = 1 - turn
         currentColor = colors[turn]
         endTurnButton.setTitleColor(colors[turn], for: UIControlState.normal)
         endTurnButton.setTitle("End Player \(turn + 1)'s Turn", for: UIControlState.normal)
+        toolButton.setImage(#imageLiteral(resourceName: "EraserIcon"), for: UIControlState.normal)
+        isDrawing = true
         
         remaining = max_length
     }

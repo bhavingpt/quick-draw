@@ -69,10 +69,21 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="trophy"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ez5-rk-9aT">
+                                <rect key="frame" x="314" y="99" width="42" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="3Tl-AJ-5PT"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="EraserIcon"/>
+                                <connections>
+                                    <action selector="switchTool:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Zw-Ru-3Ge"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x3f-xy-mdl" secondAttribute="trailing" constant="17" id="283-MW-bq0"/>
+                            <constraint firstItem="Ez5-rk-9aT" firstAttribute="top" secondItem="Uwr-8q-aOz" secondAttribute="bottom" constant="35" id="3W4-Va-OGq"/>
                             <constraint firstItem="ZNh-U6-ItP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6tP-rf-sYy"/>
                             <constraint firstItem="Fz0-mV-Jyd" firstAttribute="leading" secondItem="x3f-xy-mdl" secondAttribute="leading" id="70J-tB-06t"/>
                             <constraint firstItem="ZNh-U6-ItP" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Ci3-Cd-FwP"/>
@@ -86,7 +97,9 @@
                             <constraint firstItem="vIh-Dw-i2S" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="SsA-Rt-opC"/>
                             <constraint firstItem="Uwr-8q-aOz" firstAttribute="leading" secondItem="vIh-Dw-i2S" secondAttribute="trailing" constant="252" id="ZlR-WD-dEr"/>
                             <constraint firstItem="Uwr-8q-aOz" firstAttribute="centerY" secondItem="vIh-Dw-i2S" secondAttribute="centerY" id="afB-db-yKV"/>
+                            <constraint firstItem="Ez5-rk-9aT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="314" id="ddz-nx-gUe"/>
                             <constraint firstItem="Df1-GV-YB6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="isA-PT-2Ow"/>
+                            <constraint firstItem="Ez5-rk-9aT" firstAttribute="centerX" secondItem="Fz0-mV-Jyd" secondAttribute="centerX" id="lke-xN-kam"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Df1-GV-YB6" secondAttribute="bottom" constant="20" id="lpR-53-BrM"/>
                             <constraint firstItem="vIh-Dw-i2S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="nYH-6J-1YH"/>
                             <constraint firstItem="ZNh-U6-ItP" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="pVl-yT-e5Y"/>
@@ -96,6 +109,7 @@
                     <connections>
                         <outlet property="endTurnButton" destination="Df1-GV-YB6" id="EfR-cp-g6e"/>
                         <outlet property="imageView" destination="ZNh-U6-ItP" id="HVB-XE-5ST"/>
+                        <outlet property="toolButton" destination="Ez5-rk-9aT" id="YPc-U6-qTe"/>
                         <outlet property="trophyOne" destination="Fz0-mV-Jyd" id="mL5-3Z-x9u"/>
                         <outlet property="trophyTwo" destination="x3f-xy-mdl" id="0zQ-b7-BAa"/>
                     </connections>
@@ -106,6 +120,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="EraserIcon" width="570" height="563"/>
         <image name="Gear" width="48" height="47"/>
         <image name="ResetIcon" width="120" height="99"/>
         <image name="trophy" width="512" height="512"/>
