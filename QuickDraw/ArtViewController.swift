@@ -15,6 +15,7 @@ class ArtViewController: UIViewController {
     @IBOutlet weak var trophyOne: UIButton!
     @IBOutlet weak var trophyTwo: UIButton!
     @IBOutlet weak var toolButton: UIButton!
+    @IBOutlet weak var inkLabel: UILabel!
     
     let max_length: CGFloat = 300.0
     let erase_penalty: CGFloat = 1.5
@@ -31,14 +32,16 @@ class ArtViewController: UIViewController {
     var colorTwo = UIColor(red: 0.5, green: 0, blue: 0.5, alpha: 1.0)
     var colors: [UIColor]!
     var currentColor: UIColor!
+    @IBOutlet weak var progress: UIProgressView!
     
     var turn: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         colors = [colorOne, colorTwo]
-        endTurnButton.setTitleColor(colorOne, for: UIControlState.normal)
         currentColor = colors[turn]
+        
+        changeColor()
         remaining = max_length
     }
     
@@ -48,7 +51,7 @@ class ArtViewController: UIViewController {
             last = touch.location(in: self.view)
         }
     }
-    
+   
     func distance(_ a: CGPoint, _ b: CGPoint) -> CGFloat {
         let xDist = a.x - b.x
         let yDist = a.y - b.y
@@ -63,6 +66,8 @@ class ArtViewController: UIViewController {
         
         if remaining > dist {
             remaining = remaining - dist
+            progress.setProgress(Float(max_length - remaining) / Float(max_length), animated: true)
+            progress.setProgress(0.0, animated: false)
             
             UIGraphicsBeginImageContext(self.view.frame.size)
             imageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
@@ -121,12 +126,20 @@ class ArtViewController: UIViewController {
     @IBAction func endTurn(_ sender: UIButton) {
         turn = 1 - turn
         currentColor = colors[turn]
-        endTurnButton.setTitleColor(colors[turn], for: UIControlState.normal)
+        changeColor()
+
         endTurnButton.setTitle("End Player \(turn + 1)'s Turn", for: UIControlState.normal)
         toolButton.setImage(#imageLiteral(resourceName: "EraserIcon"), for: UIControlState.normal)
         isDrawing = true
         
         remaining = max_length
+    }
+    
+    func changeColor() {
+        endTurnButton.setTitleColor(currentColor, for: UIControlState.normal)
+        inkLabel.textColor = currentColor
+        progress.progressTintColor = currentColor
+        progress.setProgress(0.0, animated: false)
     }
     
     // Useless things
