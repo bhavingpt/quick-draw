@@ -38,6 +38,7 @@ class ArtViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.imageView.image = nil
         colors = [colorOne, colorTwo]
         currentColor = colors[turn]
         
@@ -65,9 +66,13 @@ class ArtViewController: UIViewController {
         }
         
         if remaining > dist {
-            remaining = remaining - dist
+            if (dist == 0) {
+                remaining = remaining - 1
+            } else {
+                remaining = remaining - dist
+            }
+            
             progress.setProgress(Float(max_length - remaining) / Float(max_length), animated: true)
-            progress.setProgress(0.0, animated: false)
             
             UIGraphicsBeginImageContext(self.view.frame.size)
             imageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
@@ -106,12 +111,14 @@ class ArtViewController: UIViewController {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if !swiped {
-            drawLines(from: last, to: last)
+            if (remaining > 5){
+                drawLines(from: last, to: last)
+            }
         }
     }
 
     @IBAction func reset(_ sender: UIButton) {
-        self.imageView.image = nil
+        self.viewDidLoad()
     }
     
     @IBAction func switchTool(_ sender: UIButton) {

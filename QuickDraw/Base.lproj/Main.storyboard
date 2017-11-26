@@ -30,6 +30,8 @@
                                 <rect key="frame" x="16" y="20" width="43" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="43" id="BoI-Hg-oem"/>
+                                    <constraint firstAttribute="height" constant="40" id="RAW-fU-9tU"/>
+                                    <constraint firstAttribute="width" constant="43" id="m8k-zS-ySU"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="ResetIcon"/>
                                 <connections>
