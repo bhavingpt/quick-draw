@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class ArtViewController: UIViewController {
 
@@ -16,11 +17,17 @@ class ArtViewController: UIViewController {
     @IBOutlet weak var trophyTwo: UIButton!
     @IBOutlet weak var toolButton: UIButton!
     @IBOutlet weak var inkLabel: UILabel!
+    @IBOutlet weak var clock: UILabel!
     
-    let max_length: CGFloat = 300.0
+    // MARK: Customizable presettings
+    let max_length: CGFloat = 250.0
     let erase_penalty: CGFloat = 1.5
-    var strokeWidth: CGFloat = 5.0
-    var eraseWidth: CGFloat = 15.0
+    let strokeWidth: CGFloat = 5.0
+    let eraseWidth: CGFloat = 15.0
+    let countdown: String = "5.0"
+    
+    var timer = Timer()
+    var startedTimer: Bool = false
     
     var last = CGPoint.zero
     var swiped = false
@@ -34,13 +41,14 @@ class ArtViewController: UIViewController {
     var currentColor: UIColor!
     @IBOutlet weak var progress: UIProgressView!
     
-    var turn: Int = 0
+    var turn: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.image = nil
         colors = [colorOne, colorTwo]
-        currentColor = colors[turn]
+        turn = 0
+        resetTimer()
         
         changeColor()
         remaining = max_length
@@ -97,6 +105,12 @@ class ArtViewController: UIViewController {
             imageView.image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
         }
+        
+        if (remaining < 1 && !startedTimer) {
+            startedTimer = true
+            clock.isHidden = false
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -118,7 +132,14 @@ class ArtViewController: UIViewController {
     }
 
     @IBAction func reset(_ sender: UIButton) {
-        self.viewDidLoad()
+        let actionSheet = UIAlertController(title: "Would you like to restart?", message: "This will be a loss for player \(turn + 1)!", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "New game", style: .default, handler: { (_) in
+            self.viewDidLoad()
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        
+        present(actionSheet, animated: true, completion: nil)
     }
     
     @IBAction func switchTool(_ sender: UIButton) {
@@ -132,8 +153,9 @@ class ArtViewController: UIViewController {
     
     @IBAction func endTurn(_ sender: UIButton) {
         turn = 1 - turn
-        currentColor = colors[turn]
         changeColor()
+        resetTimer()
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
 
         endTurnButton.setTitle("End Player \(turn + 1)'s Turn", for: UIControlState.normal)
         toolButton.setImage(#imageLiteral(resourceName: "EraserIcon"), for: UIControlState.normal)
@@ -143,10 +165,30 @@ class ArtViewController: UIViewController {
     }
     
     func changeColor() {
+        currentColor = colors[turn]
         endTurnButton.setTitleColor(currentColor, for: UIControlState.normal)
         inkLabel.textColor = currentColor
         progress.progressTintColor = currentColor
         progress.setProgress(0.0, animated: false)
+    }
+    
+    func resetTimer() {
+        timer.invalidate()
+        clock.text = countdown
+        clock.isHidden = true
+        startedTimer = false
+    }
+    
+    @objc func updateTimer() {
+        let arr = clock.text!.components(separatedBy: ".")
+        let time = Int(arr[0])! * 10 + Int(arr[1])!
+        
+        if (time == 0) {
+            endTurn(endTurnButton)
+        } else {
+            let newTime = time - 1
+            clock.text = String(newTime / 10) + "." + String(newTime % 10)
+        }
     }
     
     // Useless things

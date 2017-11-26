@@ -31,7 +31,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="43" id="BoI-Hg-oem"/>
                                     <constraint firstAttribute="height" constant="40" id="RAW-fU-9tU"/>
-                                    <constraint firstAttribute="width" constant="43" id="m8k-zS-ySU"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="43" id="m8k-zS-ySU"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="ResetIcon"/>
                                 <connections>
@@ -97,6 +97,13 @@
                                     <action selector="switchTool:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Zw-Ru-3Ge"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="4:53" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLh-1i-X0F">
+                                <rect key="frame" x="304" y="618" width="49" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -129,6 +136,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="clock" destination="CLh-1i-X0F" id="vp7-4i-s2g"/>
                         <outlet property="endTurnButton" destination="Df1-GV-YB6" id="EfR-cp-g6e"/>
                         <outlet property="imageView" destination="ZNh-U6-ItP" id="HVB-XE-5ST"/>
                         <outlet property="inkLabel" destination="yDX-AE-qZc" id="dqd-gh-XAR"/>
