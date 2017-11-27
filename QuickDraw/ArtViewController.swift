@@ -13,13 +13,11 @@ class ArtViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var endTurnButton: UIButton!
-    @IBOutlet weak var trophyOne: UIButton!
-    @IBOutlet weak var trophyTwo: UIButton!
     @IBOutlet weak var toolButton: UIButton!
     @IBOutlet weak var inkLabel: UILabel!
     @IBOutlet weak var clock: UILabel!
-    @IBOutlet weak var target: UILabel!
     @IBOutlet weak var delay: UIActivityIndicatorView!
+    @IBOutlet weak var trophy: UIButton!
     
     // MARK: Customizable presettings
     let max_length: CGFloat = 250.0
@@ -37,9 +35,8 @@ class ArtViewController: UIViewController {
     var displayingWin: Bool = false
     let wins: [UIImage] = [#imageLiteral(resourceName: "winOne"), #imageLiteral(resourceName: "winTwo")]
     let trophyPics: [UIImage] = [#imageLiteral(resourceName: "trophy"), #imageLiteral(resourceName: "trophy2")]
-    var trophies: [UIButton]?
     
-    var score: [Int]?
+    var score: [Int] = [0, 0]
     @IBOutlet weak var scoreOne: UILabel!
     @IBOutlet weak var scoreTwo: UILabel!
     
@@ -60,7 +57,6 @@ class ArtViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.image = nil
-        target.isHidden = true
         delay.isHidden = true
         delay.stopAnimating()
         scoreOne.isHidden = false
@@ -68,7 +64,6 @@ class ArtViewController: UIViewController {
         scoreOne.text = "1: 0%"
         scoreTwo.text = "2: 0%"
         
-        trophies = [trophyOne, trophyTwo]
         colors = [colorOne, colorTwo]
         turn = 0
         resetTimer()
@@ -181,29 +176,9 @@ class ArtViewController: UIViewController {
         delay.isHidden = false
         delay.startAnimating()
         
-        visionTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(switchTurns), userInfo: nil, repeats: false)
+        visionTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateScores), userInfo: nil, repeats: false)
         
-        score = similarity(input: self.imageView.image!)
-        
-    }
-    
-    @objc func switchTurns() {
-        visionTimer.invalidate()
-        
-        delay.isHidden = true
-        delay.stopAnimating()
-        
-        if let similarity = score {
-            scoreOne.text = "1: \(similarity[0])%"
-            scoreTwo.text = "2: \(similarity[1])%"
-        } else {
-            print ("Could not retrieve score in time")
-        }
-        
-        scoreOne.isHidden = false
-        scoreTwo.isHidden = false
-        
-        trophyUp(trophies![turn])
+        trophyUp(trophy)
         
         turn = 1 - turn
         changeColor()
@@ -214,14 +189,28 @@ class ArtViewController: UIViewController {
         isDrawing = true
         
         remaining = max_length
+        
+        if let image = self.imageView.image {
+            score = similarity(input: image)
+        }
+        
+    }
+    
+    @objc func updateScores() {
+        visionTimer.invalidate()
+        
+        delay.isHidden = true
+        delay.stopAnimating()
+        
+        scoreOne.text = "1: \(score[0])%"
+        scoreTwo.text = "2: \(score[1])%"
+        
+        scoreOne.isHidden = false
+        scoreTwo.isHidden = false
     }
     
     func changeColor() {
-        trophies![turn].setImage(trophyPics[turn], for: UIControlState.normal)
-        trophies![turn].isEnabled = true
-        trophies![1 - turn].setImage(#imageLiteral(resourceName: "boring"), for: UIControlState.normal)
-        trophies![1 - turn].isEnabled = false
-        
+        trophy.setImage(trophyPics[turn], for: UIControlState.normal)
         
         currentColor = colors[turn]
         endTurnButton.setTitleColor(currentColor, for: UIControlState.normal)
@@ -250,18 +239,13 @@ class ArtViewController: UIViewController {
     }
     
     @IBAction func trophyDown(_ sender: UIButton) {
-        if (turn == sender.tag) {
-            target.isHidden = false
-            target.text = "Player \(turn + 1) Target"
-            displayingWin = true
-            storedImage = self.imageView.image
-            self.imageView.image = wins[turn]
-        }
+        displayingWin = true
+        storedImage = self.imageView.image
+        self.imageView.image = wins[turn]
     }
     
     @IBAction func trophyUp(_ sender: UIButton) {
         if (displayingWin) {
-            target.isHidden = true
             self.imageView.image = storedImage
             displayingWin = false
         }
