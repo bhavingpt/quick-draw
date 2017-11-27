@@ -18,6 +18,7 @@ class ArtViewController: UIViewController {
     @IBOutlet weak var toolButton: UIButton!
     @IBOutlet weak var inkLabel: UILabel!
     @IBOutlet weak var clock: UILabel!
+    @IBOutlet weak var target: UILabel!
     
     // MARK: Customizable presettings
     let max_length: CGFloat = 250.0
@@ -28,6 +29,12 @@ class ArtViewController: UIViewController {
     
     var timer = Timer()
     var startedTimer: Bool = false
+    
+    var storedImage: UIImage?
+    var displayingWin: Bool = false
+    let wins: [UIImage] = [#imageLiteral(resourceName: "winOne"), #imageLiteral(resourceName: "winTwo")]
+    let trophyPics: [UIImage] = [#imageLiteral(resourceName: "trophy"), #imageLiteral(resourceName: "trophy2")]
+    var trophies: [UIButton]?
     
     var last = CGPoint.zero
     var swiped = false
@@ -46,6 +53,9 @@ class ArtViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.image = nil
+        target.isHidden = true
+        
+        trophies = [trophyOne, trophyTwo]
         colors = [colorOne, colorTwo]
         turn = 0
         resetTimer()
@@ -106,7 +116,7 @@ class ArtViewController: UIViewController {
             UIGraphicsEndImageContext()
         }
         
-        if (remaining < 1 && !startedTimer) {
+        if (remaining < 10 && !startedTimer) {
             startedTimer = true
             clock.isHidden = false
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
@@ -152,11 +162,13 @@ class ArtViewController: UIViewController {
     }
     
     @IBAction func endTurn(_ sender: UIButton) {
+        trophyUp(trophies![turn])
+        
         turn = 1 - turn
         changeColor()
         resetTimer()
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-
+        
         endTurnButton.setTitle("End Player \(turn + 1)'s Turn", for: UIControlState.normal)
         toolButton.setImage(#imageLiteral(resourceName: "EraserIcon"), for: UIControlState.normal)
         isDrawing = true
@@ -165,6 +177,12 @@ class ArtViewController: UIViewController {
     }
     
     func changeColor() {
+        trophies![turn].setImage(trophyPics[turn], for: UIControlState.normal)
+        trophies![turn].isEnabled = true
+        trophies![1 - turn].setImage(#imageLiteral(resourceName: "boring"), for: UIControlState.normal)
+        trophies![1 - turn].isEnabled = false
+        
+        
         currentColor = colors[turn]
         endTurnButton.setTitleColor(currentColor, for: UIControlState.normal)
         inkLabel.textColor = currentColor
@@ -190,6 +208,25 @@ class ArtViewController: UIViewController {
             clock.text = String(newTime / 10) + "." + String(newTime % 10)
         }
     }
+    
+    @IBAction func trophyDown(_ sender: UIButton) {
+        if (turn == sender.tag) {
+            target.isHidden = false
+            target.text = "Player \(turn + 1) Target"
+            displayingWin = true
+            storedImage = self.imageView.image
+            self.imageView.image = wins[turn]
+        }
+    }
+    
+    @IBAction func trophyUp(_ sender: UIButton) {
+        if (displayingWin) {
+            target.isHidden = true
+            self.imageView.image = storedImage
+            displayingWin = false
+        }
+    }
+    
     
     // Useless things
     
