@@ -122,19 +122,38 @@
                                 <color key="textColor" red="0.89122755980000001" green="0.0" blue="0.035075369570000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="et5-QX-caE">
+                                <rect key="frame" x="27" y="138" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1: 0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6q-OS-p5w">
+                                <rect key="frame" x="16" y="116.5" width="61" height="23"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2: 0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlu-e3-zcC">
+                                <rect key="frame" x="16" y="147.5" width="61" height="23"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="et5-QX-caE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="27" id="0GU-1f-hbs"/>
                             <constraint firstItem="hgS-Jr-Ofs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="101" id="0Wn-xT-VFj"/>
                             <constraint firstItem="Uwr-8q-aOz" firstAttribute="top" secondItem="vIh-Dw-i2S" secondAttribute="top" id="21s-0X-hPr"/>
+                            <constraint firstItem="jlu-e3-zcC" firstAttribute="trailing" secondItem="vIh-Dw-i2S" secondAttribute="trailing" constant="18" id="5hK-rt-Mt8"/>
                             <constraint firstItem="Rem-Y7-wWq" firstAttribute="top" secondItem="yDX-AE-qZc" secondAttribute="bottom" constant="9" id="793-Es-w4z"/>
                             <constraint firstItem="Uwr-8q-aOz" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="99y-Qc-ORu"/>
                             <constraint firstItem="ZNh-U6-ItP" firstAttribute="centerX" secondItem="yDX-AE-qZc" secondAttribute="centerX" id="A5F-BB-ZtD"/>
+                            <constraint firstItem="jlu-e3-zcC" firstAttribute="leading" secondItem="S6q-OS-p5w" secondAttribute="leading" id="Ewu-q2-zez"/>
                             <constraint firstItem="hgS-Jr-Ofs" firstAttribute="centerX" secondItem="yDX-AE-qZc" secondAttribute="centerX" id="FAv-Au-FU8"/>
                             <constraint firstItem="x3f-xy-mdl" firstAttribute="top" secondItem="Fz0-mV-Jyd" secondAttribute="bottom" constant="34" id="HKP-6q-wJm"/>
                             <constraint firstItem="yDX-AE-qZc" firstAttribute="centerX" secondItem="Rem-Y7-wWq" secondAttribute="centerX" id="IDJ-Jy-ohV"/>
                             <constraint firstItem="Rem-Y7-wWq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="96" id="Ixc-Am-IdO"/>
                             <constraint firstItem="Fz0-mV-Jyd" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="278" id="MuN-jV-0bJ"/>
+                            <constraint firstItem="jlu-e3-zcC" firstAttribute="top" secondItem="S6q-OS-p5w" secondAttribute="bottom" constant="8" symbolic="YES" id="OEF-Gv-9Fd"/>
                             <constraint firstItem="Uwr-8q-aOz" firstAttribute="centerX" secondItem="Fz0-mV-Jyd" secondAttribute="centerX" id="Pg5-jO-a7S"/>
                             <constraint firstItem="ZNh-U6-ItP" firstAttribute="centerX" secondItem="Df1-GV-YB6" secondAttribute="centerX" id="PxH-9s-PsM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ez5-rk-9aT" secondAttribute="trailing" constant="18" id="QBX-9k-OkV"/>
@@ -146,22 +165,29 @@
                             <constraint firstItem="vIh-Dw-i2S" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="WWs-Kr-qP4"/>
                             <constraint firstItem="hgS-Jr-Ofs" firstAttribute="top" secondItem="Ez5-rk-9aT" secondAttribute="top" id="XNi-xy-TZ9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vIh-Dw-i2S" secondAttribute="bottom" constant="607" id="bZG-9j-NhG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jlu-e3-zcC" secondAttribute="bottom" constant="497" id="exi-p6-T09"/>
                             <constraint firstAttribute="trailing" secondItem="ZNh-U6-ItP" secondAttribute="trailing" id="fZA-4c-Ot1"/>
                             <constraint firstItem="ZNh-U6-ItP" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="fZL-PQ-F5p"/>
+                            <constraint firstItem="jlu-e3-zcC" firstAttribute="trailing" secondItem="S6q-OS-p5w" secondAttribute="trailing" id="fvv-OQ-hDq"/>
                             <constraint firstItem="vIh-Dw-i2S" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="j5g-bj-xuP"/>
                             <constraint firstItem="ZNh-U6-ItP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oCi-8U-ocj"/>
+                            <constraint firstItem="jlu-e3-zcC" firstAttribute="leading" secondItem="vIh-Dw-i2S" secondAttribute="leading" id="rSe-de-PlC"/>
                             <constraint firstItem="yDX-AE-qZc" firstAttribute="leading" secondItem="vIh-Dw-i2S" secondAttribute="trailing" constant="115" id="xCm-QA-V9E"/>
                             <constraint firstItem="Ez5-rk-9aT" firstAttribute="top" secondItem="Uwr-8q-aOz" secondAttribute="bottom" constant="53" id="xef-vR-LE5"/>
                             <constraint firstItem="ZNh-U6-ItP" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="yJ6-an-cHS"/>
+                            <constraint firstItem="et5-QX-caE" firstAttribute="centerY" secondItem="ZNh-U6-ItP" secondAttribute="centerY" constant="-185.5" id="ymg-v8-WI2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="clock" destination="CLh-1i-X0F" id="vp7-4i-s2g"/>
+                        <outlet property="delay" destination="et5-QX-caE" id="cFx-Kc-fx5"/>
                         <outlet property="endTurnButton" destination="Df1-GV-YB6" id="EfR-cp-g6e"/>
                         <outlet property="imageView" destination="ZNh-U6-ItP" id="HVB-XE-5ST"/>
                         <outlet property="inkLabel" destination="yDX-AE-qZc" id="dqd-gh-XAR"/>
                         <outlet property="progress" destination="Rem-Y7-wWq" id="vM8-wW-MXa"/>
+                        <outlet property="scoreOne" destination="S6q-OS-p5w" id="ZGQ-oZ-5KZ"/>
+                        <outlet property="scoreTwo" destination="jlu-e3-zcC" id="GFA-gc-hQi"/>
                         <outlet property="target" destination="hgS-Jr-Ofs" id="xWb-1i-qa8"/>
                         <outlet property="toolButton" destination="Ez5-rk-9aT" id="YPc-U6-qTe"/>
                         <outlet property="trophyOne" destination="Fz0-mV-Jyd" id="mL5-3Z-x9u"/>

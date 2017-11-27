@@ -19,6 +19,7 @@ class ArtViewController: UIViewController {
     @IBOutlet weak var inkLabel: UILabel!
     @IBOutlet weak var clock: UILabel!
     @IBOutlet weak var target: UILabel!
+    @IBOutlet weak var delay: UIActivityIndicatorView!
     
     // MARK: Customizable presettings
     let max_length: CGFloat = 250.0
@@ -26,8 +27,10 @@ class ArtViewController: UIViewController {
     let strokeWidth: CGFloat = 5.0
     let eraseWidth: CGFloat = 15.0
     let countdown: String = "5.0"
+    let required: Int = 90
     
     var timer = Timer()
+    var visionTimer = Timer()
     var startedTimer: Bool = false
     
     var storedImage: UIImage?
@@ -35,6 +38,10 @@ class ArtViewController: UIViewController {
     let wins: [UIImage] = [#imageLiteral(resourceName: "winOne"), #imageLiteral(resourceName: "winTwo")]
     let trophyPics: [UIImage] = [#imageLiteral(resourceName: "trophy"), #imageLiteral(resourceName: "trophy2")]
     var trophies: [UIButton]?
+    
+    var score: [Int]?
+    @IBOutlet weak var scoreOne: UILabel!
+    @IBOutlet weak var scoreTwo: UILabel!
     
     var last = CGPoint.zero
     var swiped = false
@@ -54,6 +61,12 @@ class ArtViewController: UIViewController {
         super.viewDidLoad()
         self.imageView.image = nil
         target.isHidden = true
+        delay.isHidden = true
+        delay.stopAnimating()
+        scoreOne.isHidden = false
+        scoreTwo.isHidden = false
+        scoreOne.text = "1: 0%"
+        scoreTwo.text = "2: 0%"
         
         trophies = [trophyOne, trophyTwo]
         colors = [colorOne, colorTwo]
@@ -162,11 +175,38 @@ class ArtViewController: UIViewController {
     }
     
     @IBAction func endTurn(_ sender: UIButton) {
+        resetTimer()
+        scoreOne.isHidden = true
+        scoreTwo.isHidden = true
+        delay.isHidden = false
+        delay.startAnimating()
+        
+        visionTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(switchTurns), userInfo: nil, repeats: false)
+        
+        score = similarity(input: self.imageView.image!)
+        
+    }
+    
+    @objc func switchTurns() {
+        visionTimer.invalidate()
+        
+        delay.isHidden = true
+        delay.stopAnimating()
+        
+        if let similarity = score {
+            scoreOne.text = "1: \(similarity[0])%"
+            scoreTwo.text = "1: \(similarity[1])%"
+        } else {
+            print ("Could not retrieve score in time")
+        }
+        
+        scoreOne.isHidden = false
+        scoreTwo.isHidden = false
+        
         trophyUp(trophies![turn])
         
         turn = 1 - turn
         changeColor()
-        resetTimer()
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
         
         endTurnButton.setTitle("End Player \(turn + 1)'s Turn", for: UIControlState.normal)
@@ -225,6 +265,10 @@ class ArtViewController: UIViewController {
             self.imageView.image = storedImage
             displayingWin = false
         }
+    }
+    
+    func similarity(input: UIImage) -> [Int] {
+        return [Int(arc4random_uniform(100)), Int(arc4random_uniform(100))]
     }
     
     
