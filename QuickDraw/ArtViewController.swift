@@ -129,7 +129,7 @@ class ArtViewController: UIViewController {
             UIGraphicsEndImageContext()
         }
         
-        if (remaining < 10 && !startedTimer) {
+        if (remaining < 10 && !startedTimer && !delay.isAnimating) {
             startedTimer = true
             clock.isHidden = false
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
@@ -195,7 +195,7 @@ class ArtViewController: UIViewController {
         
         if let similarity = score {
             scoreOne.text = "1: \(similarity[0])%"
-            scoreTwo.text = "1: \(similarity[1])%"
+            scoreTwo.text = "2: \(similarity[1])%"
         } else {
             print ("Could not retrieve score in time")
         }
