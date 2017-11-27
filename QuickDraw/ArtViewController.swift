@@ -22,9 +22,9 @@ class ArtViewController: UIViewController {
     // MARK: Customizable presettings
     let max_length: CGFloat = 250.0
     let erase_penalty: CGFloat = 1.5
-    let strokeWidth: CGFloat = 5.0
-    let eraseWidth: CGFloat = 15.0
-    let countdown: String = "5.0"
+    let strokeWidth: CGFloat = 4.0
+    let eraseWidth: CGFloat = 12.0
+    let countdown: String = "4.0"
     let required: Int = 90
     
     var timer = Timer()
@@ -56,7 +56,7 @@ class ArtViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.imageView.image = nil
+        self.imageView.image = #imageLiteral(resourceName: "empty")
         delay.isHidden = true
         delay.stopAnimating()
         scoreOne.isHidden = false
@@ -100,12 +100,22 @@ class ArtViewController: UIViewController {
             
             progress.setProgress(Float(max_length - remaining) / Float(max_length), animated: true)
             
-            UIGraphicsBeginImageContext(self.view.frame.size)
-            imageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+            let pic = imageView.image!
+            let originX = imageView.frame.origin.x
+            let originY = imageView.frame.origin.y
+            
+            UIGraphicsBeginImageContext(pic.size)
+            
+            pic.draw(at: CGPoint.zero)
             let context = UIGraphicsGetCurrentContext()
             
-            context?.move(to: CGPoint(x: from.x, y: from.y))
-            context?.addLine(to: CGPoint(x: to.x, y: to.y))
+            let fromPointX = (from.x - originX) / imageView.frame.size.width
+            let fromPointY = (from.y - originY) / imageView.frame.size.height
+            let toPointX = (to.x - originX) / imageView.frame.size.width
+            let toPointY = (to.y - originY) / imageView.frame.size.height
+
+            context?.move(to: CGPoint(x: fromPointX * pic.size.width, y: fromPointY * pic.size.height))
+            context?.addLine(to: CGPoint(x: toPointX * pic.size.width, y: toPointY * pic.size.height))
             
             context?.setBlendMode(CGBlendMode.normal)
             context?.setLineCap(CGLineCap.round)
@@ -176,7 +186,7 @@ class ArtViewController: UIViewController {
         delay.isHidden = false
         delay.startAnimating()
         
-        visionTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateScores), userInfo: nil, repeats: false)
+        visionTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(updateScores), userInfo: nil, repeats: false)
         
         trophyUp(trophy)
         
@@ -184,16 +194,12 @@ class ArtViewController: UIViewController {
         changeColor()
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
         
-        endTurnButton.setTitle("End Player \(turn + 1)'s Turn", for: UIControlState.normal)
         toolButton.setImage(#imageLiteral(resourceName: "EraserIcon"), for: UIControlState.normal)
         isDrawing = true
         
         remaining = max_length
         
-        if let image = self.imageView.image {
-            score = similarity(input: image)
-        }
-        
+        score = similarity(input: self.imageView.image!)
     }
     
     @objc func updateScores() {
@@ -213,7 +219,6 @@ class ArtViewController: UIViewController {
         trophy.setImage(trophyPics[turn], for: UIControlState.normal)
         
         currentColor = colors[turn]
-        endTurnButton.setTitleColor(currentColor, for: UIControlState.normal)
         inkLabel.textColor = currentColor
         progress.progressTintColor = currentColor
         progress.setProgress(0.0, animated: false)
