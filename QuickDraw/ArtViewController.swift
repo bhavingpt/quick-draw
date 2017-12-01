@@ -56,6 +56,10 @@ class ArtViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let t = OpenCVWrapper()
+        t.openCVVersionString()
+        
         self.imageView.image = #imageLiteral(resourceName: "empty")
         delay.isHidden = true
         delay.stopAnimating()
