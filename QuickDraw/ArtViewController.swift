@@ -30,6 +30,7 @@ class ArtViewController: UIViewController {
     var timer = Timer()
     var visionTimer = Timer()
     var startedTimer: Bool = false
+    @IBOutlet weak var easel: UIImageView!
     
     var storedImage: UIImage?
     var displayingWin: Bool = false
@@ -57,6 +58,7 @@ class ArtViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.image = #imageLiteral(resourceName: "empty")
+        easel.transform = easel.transform.rotated(by: CGFloat(.pi * (4.5) / 180.0))
         delay.isHidden = true
         delay.stopAnimating()
         scoreOne.isHidden = false
