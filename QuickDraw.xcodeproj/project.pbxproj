@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37AF71AB95D7AFA81E1C2C9B /* Pods_QuickDraw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF5153E4D004779F0A10C56 /* Pods_QuickDraw.framework */; };
 		F1B12D4C1FCA1D3D002C55F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B12D4B1FCA1D3D002C55F0 /* AppDelegate.swift */; };
 		F1B12D511FCA1D3D002C55F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1B12D4F1FCA1D3D002C55F0 /* Main.storyboard */; };
 		F1B12D541FCA1D3D002C55F0 /* QuickDraw.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1B12D521FCA1D3D002C55F0 /* QuickDraw.xcdatamodeld */; };
@@ -17,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2940626B25EDA89931DD48B6 /* Pods-QuickDraw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickDraw.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw.release.xcconfig"; sourceTree = "<group>"; };
+		5AF5153E4D004779F0A10C56 /* Pods_QuickDraw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickDraw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77269D7F96C8F2A492333243 /* Pods-QuickDraw.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickDraw.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw.debug.xcconfig"; sourceTree = "<group>"; };
 		F1B12D481FCA1D3D002C55F0 /* QuickDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1B12D4B1FCA1D3D002C55F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1B12D501FCA1D3D002C55F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -33,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37AF71AB95D7AFA81E1C2C9B /* Pods_QuickDraw.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22037F17D557429A2ABA0CC8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5AF5153E4D004779F0A10C56 /* Pods_QuickDraw.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		40B9A89E24B566EC4898E593 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				77269D7F96C8F2A492333243 /* Pods-QuickDraw.debug.xcconfig */,
+				2940626B25EDA89931DD48B6 /* Pods-QuickDraw.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F1B12D3F1FCA1D3D002C55F0 = {
 			isa = PBXGroup;
 			children = (
 				F1B12D4A1FCA1D3D002C55F0 /* QuickDraw */,
 				F1B12D491FCA1D3D002C55F0 /* Products */,
+				40B9A89E24B566EC4898E593 /* Pods */,
+				22037F17D557429A2ABA0CC8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1B12D5D1FCA1D3D002C55F0 /* Build configuration list for PBXNativeTarget "QuickDraw" */;
 			buildPhases = (
+				C59D376956154CC01DC63123 /* [CP] Check Pods Manifest.lock */,
 				F1B12D441FCA1D3D002C55F0 /* Sources */,
 				F1B12D451FCA1D3D002C55F0 /* Frameworks */,
 				F1B12D461FCA1D3D002C55F0 /* Resources */,
+				9C9FE25EE992AFC2D8142783 /* [CP] Embed Pods Frameworks */,
+				B8CF405DC84058F47DB950F3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -136,6 +163,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9C9FE25EE992AFC2D8142783 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/OpenCV/opencv2.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8CF405DC84058F47DB950F3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C59D376956154CC01DC63123 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QuickDraw-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F1B12D441FCA1D3D002C55F0 /* Sources */ = {
@@ -280,6 +361,7 @@
 		};
 		F1B12D5E1FCA1D3D002C55F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77269D7F96C8F2A492333243 /* Pods-QuickDraw.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -295,6 +377,7 @@
 		};
 		F1B12D5F1FCA1D3D002C55F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2940626B25EDA89931DD48B6 /* Pods-QuickDraw.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
