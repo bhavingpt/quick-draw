@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F1AA0E701FD1CD22001B29D0 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = F1AA0E6F1FD1CD22001B29D0 /* OpenCVWrapper.mm */; };
+		BAA1447744A4CA9C298A19B6 /* Pods_QuickDraw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831A0F4416AD3F1717CD65B2 /* Pods_QuickDraw.framework */; };
 		F1B12D4C1FCA1D3D002C55F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B12D4B1FCA1D3D002C55F0 /* AppDelegate.swift */; };
 		F1B12D511FCA1D3D002C55F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1B12D4F1FCA1D3D002C55F0 /* Main.storyboard */; };
 		F1B12D541FCA1D3D002C55F0 /* QuickDraw.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1B12D521FCA1D3D002C55F0 /* QuickDraw.xcdatamodeld */; };
@@ -15,12 +15,13 @@
 		F1B12D591FCA1D3D002C55F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1B12D571FCA1D3D002C55F0 /* LaunchScreen.storyboard */; };
 		F1B12D611FCA1D82002C55F0 /* ArtViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B12D601FCA1D82002C55F0 /* ArtViewController.swift */; };
 		F1B12D631FCA210B002C55F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B12D621FCA210B002C55F0 /* ViewController.swift */; };
+		F1D4C1E71FD316FC00F28B7F /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = F1D4C1E61FD316FC00F28B7F /* OpenCVWrapper.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F1AA0E6D1FD1CD22001B29D0 /* QuickDraw-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickDraw-Bridging-Header.h"; sourceTree = "<group>"; };
-		F1AA0E6E1FD1CD22001B29D0 /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
-		F1AA0E6F1FD1CD22001B29D0 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		1216F485070499B66CFB253D /* Pods-QuickDraw.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickDraw.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw.debug.xcconfig"; sourceTree = "<group>"; };
+		831A0F4416AD3F1717CD65B2 /* Pods_QuickDraw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickDraw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA4DA89463FD8B2610902E9F /* Pods-QuickDraw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickDraw.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw.release.xcconfig"; sourceTree = "<group>"; };
 		F1B12D481FCA1D3D002C55F0 /* QuickDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1B12D4B1FCA1D3D002C55F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1B12D501FCA1D3D002C55F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -30,6 +31,9 @@
 		F1B12D5A1FCA1D3D002C55F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1B12D601FCA1D82002C55F0 /* ArtViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtViewController.swift; sourceTree = "<group>"; };
 		F1B12D621FCA210B002C55F0 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F1D4C1E41FD316FC00F28B7F /* QuickDraw-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickDraw-Bridging-Header.h"; sourceTree = "<group>"; };
+		F1D4C1E51FD316FC00F28B7F /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
+		F1D4C1E61FD316FC00F28B7F /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,20 +41,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAA1447744A4CA9C298A19B6 /* Pods_QuickDraw.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F1AA0E6C1FD1CCEE001B29D0 /* Wrappers */ = {
+		6469A2E68C16296B01B39625 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F1AA0E6E1FD1CD22001B29D0 /* OpenCVWrapper.h */,
-				F1AA0E6F1FD1CD22001B29D0 /* OpenCVWrapper.mm */,
-				F1AA0E6D1FD1CD22001B29D0 /* QuickDraw-Bridging-Header.h */,
+				831A0F4416AD3F1717CD65B2 /* Pods_QuickDraw.framework */,
 			);
-			path = Wrappers;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		902FCA3C4072E264B781D430 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1216F485070499B66CFB253D /* Pods-QuickDraw.debug.xcconfig */,
+				AA4DA89463FD8B2610902E9F /* Pods-QuickDraw.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		F1B12D3F1FCA1D3D002C55F0 = {
@@ -58,6 +70,8 @@
 			children = (
 				F1B12D4A1FCA1D3D002C55F0 /* QuickDraw */,
 				F1B12D491FCA1D3D002C55F0 /* Products */,
+				902FCA3C4072E264B781D430 /* Pods */,
+				6469A2E68C16296B01B39625 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,7 +86,7 @@
 		F1B12D4A1FCA1D3D002C55F0 /* QuickDraw */ = {
 			isa = PBXGroup;
 			children = (
-				F1AA0E6C1FD1CCEE001B29D0 /* Wrappers */,
+				F1D4C1E31FD316DB00F28B7F /* Wrappers */,
 				F1B12D4B1FCA1D3D002C55F0 /* AppDelegate.swift */,
 				F1B12D4F1FCA1D3D002C55F0 /* Main.storyboard */,
 				F1B12D601FCA1D82002C55F0 /* ArtViewController.swift */,
@@ -85,6 +99,17 @@
 			path = QuickDraw;
 			sourceTree = "<group>";
 		};
+		F1D4C1E31FD316DB00F28B7F /* Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				F1D4C1E51FD316FC00F28B7F /* OpenCVWrapper.h */,
+				F1D4C1E61FD316FC00F28B7F /* OpenCVWrapper.mm */,
+				F1D4C1E41FD316FC00F28B7F /* QuickDraw-Bridging-Header.h */,
+			);
+			name = Wrappers;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -92,9 +117,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1B12D5D1FCA1D3D002C55F0 /* Build configuration list for PBXNativeTarget "QuickDraw" */;
 			buildPhases = (
+				47682631147B46FA276DEC75 /* [CP] Check Pods Manifest.lock */,
 				F1B12D441FCA1D3D002C55F0 /* Sources */,
 				F1B12D451FCA1D3D002C55F0 /* Frameworks */,
 				F1B12D461FCA1D3D002C55F0 /* Resources */,
+				25C0EEE2B447D2D737D5B7A4 /* [CP] Embed Pods Frameworks */,
+				CDEA0804B89A76896C828B58 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -153,13 +181,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		25C0EEE2B447D2D737D5B7A4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/OpenCV/opencv2.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		47682631147B46FA276DEC75 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QuickDraw-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CDEA0804B89A76896C828B58 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F1B12D441FCA1D3D002C55F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F1B12D611FCA1D82002C55F0 /* ArtViewController.swift in Sources */,
-				F1AA0E701FD1CD22001B29D0 /* OpenCVWrapper.mm in Sources */,
+				F1D4C1E71FD316FC00F28B7F /* OpenCVWrapper.mm in Sources */,
 				F1B12D4C1FCA1D3D002C55F0 /* AppDelegate.swift in Sources */,
 				F1B12D631FCA210B002C55F0 /* ViewController.swift in Sources */,
 				F1B12D541FCA1D3D002C55F0 /* QuickDraw.xcdatamodeld in Sources */,
@@ -297,6 +379,7 @@
 		};
 		F1B12D5E1FCA1D3D002C55F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1216F485070499B66CFB253D /* Pods-QuickDraw.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -306,7 +389,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = self.edu.bhavingupta.QuickDraw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "QuickDraw/Wrappers/QuickDraw-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "QuickDraw/New Group/QuickDraw-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -315,6 +398,7 @@
 		};
 		F1B12D5F1FCA1D3D002C55F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA4DA89463FD8B2610902E9F /* Pods-QuickDraw.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -324,7 +408,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = self.edu.bhavingupta.QuickDraw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "QuickDraw/Wrappers/QuickDraw-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "QuickDraw/New Group/QuickDraw-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
