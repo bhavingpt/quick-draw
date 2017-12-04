@@ -36,6 +36,8 @@ class ArtViewController: UIViewController {
     let wins: [UIImage] = [#imageLiteral(resourceName: "winOne"), #imageLiteral(resourceName: "winTwo")]
     let trophyPics: [UIImage] = [#imageLiteral(resourceName: "trophy"), #imageLiteral(resourceName: "trophy2")]
     
+    let cv2 = OpenCVWrapper()
+    
     var score: [Int] = [0, 0]
     @IBOutlet weak var scoreOne: UILabel!
     @IBOutlet weak var scoreTwo: UILabel!
@@ -56,9 +58,8 @@ class ArtViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let t = OpenCVWrapper()
-        print (t.openCVVersionString())
+    
+        print (cv2.openCVVersionString())
         
         self.imageView.image = #imageLiteral(resourceName: "empty")
         delay.isHidden = true
@@ -261,6 +262,13 @@ class ArtViewController: UIViewController {
     }
     
     func similarity(input: UIImage) -> [Int] {
+        if self.imageView.image == nil {
+            return [0, 0]
+        }
+        let playerOneTarget: Int = Int(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winOne")))
+        let playerTwoTarget: Int = Int(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winTwo")))
+        
+        print ("calculated \(playerOneTarget), \(playerTwoTarget)")
         return [Int(arc4random_uniform(100)), Int(arc4random_uniform(100))]
     }
     
