@@ -18,14 +18,14 @@ using namespace std;
 using namespace cv;
 
 @implementation OpenCVWrapper {
-    Ptr <ORB> orb;
+    Ptr <AKAZE> orb;
     FlannBasedMatcher matcher;
 }
 
 - (id) init {
     self = [super init];
     
-    self->orb = ORB::create();
+    self->orb = AKAZE::create();
     self->matcher = FlannBasedMatcher(new cv::flann::LshIndexParams(5, 24, 2));
 
     return self;
@@ -54,8 +54,11 @@ using namespace cv;
     self->matcher.knnMatch(desInput, desTest, matches, 2);
     // Second neighbor ratio test.
     for (unsigned int i = 0; i < matches.size(); ++i) {
-        if (matches[i][0].distance < matches[i][1].distance * 0.75)
-            goodMatches.push_back(matches[i][0]);
+        if (matches[i].size() >= 2) {
+            if (matches[i][0].distance < matches[i][1].distance * 0.9) {
+                goodMatches.push_back(matches[i][0]);
+            }
+        }
     }
     
     return ((int) goodMatches.size());

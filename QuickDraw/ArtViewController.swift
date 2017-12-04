@@ -25,7 +25,6 @@ class ArtViewController: UIViewController {
     let strokeWidth: CGFloat = 4.0
     let eraseWidth: CGFloat = 12.0
     let countdown: String = "4.0"
-    let required: Int = 90
     
     var timer = Timer()
     var visionTimer = Timer()
@@ -39,6 +38,7 @@ class ArtViewController: UIViewController {
     let cv2 = OpenCVWrapper()
     
     var score: [Int] = [0, 0]
+    var required: [Int] = [0, 0]
     @IBOutlet weak var scoreOne: UILabel!
     @IBOutlet weak var scoreTwo: UILabel!
     
@@ -60,6 +60,8 @@ class ArtViewController: UIViewController {
         super.viewDidLoad()
     
         print (cv2.openCVVersionString())
+        required[0] = Int( cv2.score(#imageLiteral(resourceName: "winOne"), to: #imageLiteral(resourceName: "winOne")) )
+        required[1] = Int( cv2.score(#imageLiteral(resourceName: "winTwo"), to: #imageLiteral(resourceName: "winTwo")) )
         
         self.imageView.image = #imageLiteral(resourceName: "empty")
         delay.isHidden = true
@@ -265,13 +267,15 @@ class ArtViewController: UIViewController {
         if self.imageView.image == nil {
             return [0, 0]
         }
-        let playerOneTarget: Int = Int(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winOne")))
-        let playerTwoTarget: Int = Int(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winTwo")))
         
-        print ("calculated \(playerOneTarget), \(playerTwoTarget)")
-        return [Int(arc4random_uniform(100)), Int(arc4random_uniform(100))]
+        var boost = Int(arc4random_uniform(25));
+        let playerOneTarget: Int = boost + Int( 100 * Float(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winOne"))) / Float(required[0]) )
+        
+        boost = Int(arc4random_uniform(25));
+        let playerTwoTarget: Int = boost + Int( 100 * Float(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winTwo"))) / Float(required[1]) )
+        
+        return [playerOneTarget, playerTwoTarget]
     }
-    
     
     // Useless things
     
