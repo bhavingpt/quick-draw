@@ -14,17 +14,17 @@ class ArtViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var endTurnButton: UIButton!
     @IBOutlet weak var toolButton: UIButton!
-    @IBOutlet weak var inkLabel: UILabel!
-    @IBOutlet weak var clock: UILabel!
     @IBOutlet weak var delay: UIActivityIndicatorView!
     @IBOutlet weak var trophy: UIButton!
     
     // MARK: Customizable presettings
     let max_length: CGFloat = 250.0
     let erase_penalty: CGFloat = 1.5
-    let strokeWidth: CGFloat = 4.0
-    let eraseWidth: CGFloat = 12.0
+    let strokeWidth: CGFloat = 3.0
+    let eraseWidth: CGFloat = 9.0
+    
     let countdown: String = "4.0"
+    var clock: String?
     
     var timer = Timer()
     var visionTimer = Timer()
@@ -41,6 +41,10 @@ class ArtViewController: UIViewController {
     var required: [Int] = [0, 0]
     @IBOutlet weak var scoreOne: UILabel!
     @IBOutlet weak var scoreTwo: UILabel!
+    
+    @IBOutlet weak var turnLabel: UILabel!
+    @IBOutlet weak var playerOneName: UILabel!
+    @IBOutlet weak var playerTwoName: UILabel!
     
     var last = CGPoint.zero
     var swiped = false
@@ -68,8 +72,8 @@ class ArtViewController: UIViewController {
         delay.stopAnimating()
         scoreOne.isHidden = false
         scoreTwo.isHidden = false
-        scoreOne.text = "1: 0%"
-        scoreTwo.text = "2: 0%"
+        scoreOne.text = "0"
+        scoreTwo.text = "0"
         
         colors = [colorOne, colorTwo]
         turn = 0
@@ -143,7 +147,6 @@ class ArtViewController: UIViewController {
         
         if (remaining < 10 && !startedTimer && !delay.isAnimating) {
             startedTimer = true
-            clock.isHidden = false
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         }
     }
@@ -167,7 +170,9 @@ class ArtViewController: UIViewController {
     }
 
     @IBAction func reset(_ sender: UIButton) {
-        let actionSheet = UIAlertController(title: "Would you like to restart?", message: "This will be a loss for player \(turn + 1)!", preferredStyle: .actionSheet)
+        let players = [playerOneName, playerTwoName]
+        let def_string = turn == 0 ? "player one" : "player two"
+        let actionSheet = UIAlertController(title: "Would you really like to restart?", message: "This will be a loss for \(players[turn]?.text ?? def_string)!", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "New game", style: .default, handler: { (_) in
             self.viewDidLoad()
         }))
@@ -215,8 +220,8 @@ class ArtViewController: UIViewController {
         delay.isHidden = true
         delay.stopAnimating()
         
-        scoreOne.text = "1: \(score[0])%"
-        scoreTwo.text = "2: \(score[1])%"
+        scoreOne.text = "\(score[0])"
+        scoreTwo.text = "\(score[1])"
         
         scoreOne.isHidden = false
         scoreTwo.isHidden = false
@@ -226,27 +231,28 @@ class ArtViewController: UIViewController {
         trophy.setImage(trophyPics[turn], for: UIControlState.normal)
         
         currentColor = colors[turn]
-        inkLabel.textColor = currentColor
         progress.progressTintColor = currentColor
         progress.setProgress(0.0, animated: false)
+        
+        let names = [playerOneName, playerTwoName]
+        turnLabel.text = "\(names[turn]?.text ?? "Player")'s turn"
     }
     
     func resetTimer() {
         timer.invalidate()
-        clock.text = countdown
-        clock.isHidden = true
+        clock = countdown
         startedTimer = false
     }
     
     @objc func updateTimer() {
-        let arr = clock.text!.components(separatedBy: ".")
+        let arr = clock!.components(separatedBy: ".")
         let time = Int(arr[0])! * 10 + Int(arr[1])!
         
         if (time == 0) {
             endTurn(endTurnButton)
         } else {
             let newTime = time - 1
-            clock.text = String(newTime / 10) + "." + String(newTime % 10)
+            clock = String(newTime / 10) + "." + String(newTime % 10)
         }
     }
     
