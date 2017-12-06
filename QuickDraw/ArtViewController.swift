@@ -20,10 +20,10 @@ class ArtViewController: UIViewController {
     // MARK: Customizable presettings
     let max_length: CGFloat = 250.0
     let erase_penalty: CGFloat = 1.5
-    let strokeWidth: CGFloat = 3.0
+    let strokeWidth: CGFloat = 4.5
     let eraseWidth: CGFloat = 9.0
     
-    let countdown: String = "4.0"
+    let countdown: String = "2.0"
     var clock: String?
     
     var timer = Timer()
@@ -56,7 +56,7 @@ class ArtViewController: UIViewController {
     var colorTwo = UIColor(red: 0.5, green: 0, blue: 0.5, alpha: 1.0)
     var colors: [UIColor]!
     var currentColor: UIColor!
-    @IBOutlet weak var progress: UIProgressView!
+    @IBOutlet weak var progress: ProgressView!
     
     var turn: Int!
 
@@ -109,7 +109,8 @@ class ArtViewController: UIViewController {
                 remaining = remaining - dist
             }
             
-            progress.setProgress(Float(max_length - remaining) / Float(max_length), animated: true)
+            let percent = Float(max_length - remaining) / Float(max_length)
+            progress.setNeedsDisplay(CGRect(x: 0.0, y: 0.0, width: CGFloat(percent) * progress.bounds.width, height: progress.bounds.width))
             
             let pic = imageView.image!
             let originX = imageView.frame.origin.x
@@ -231,8 +232,8 @@ class ArtViewController: UIViewController {
         trophy.setImage(trophyPics[turn], for: UIControlState.normal)
         
         currentColor = colors[turn]
-        progress.progressTintColor = currentColor
-        progress.setProgress(0.0, animated: false)
+        progress.wipe = true
+        progress.setNeedsDisplay()
         
         let names = [playerOneName, playerTwoName]
         turnLabel.text = "\(names[turn]?.text ?? "Player")'s turn"

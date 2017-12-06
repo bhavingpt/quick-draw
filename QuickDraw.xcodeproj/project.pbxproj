@@ -17,6 +17,7 @@
 		F1B12D611FCA1D82002C55F0 /* ArtViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B12D601FCA1D82002C55F0 /* ArtViewController.swift */; };
 		F1B12D631FCA210B002C55F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B12D621FCA210B002C55F0 /* ViewController.swift */; };
 		F1D4C1E71FD316FC00F28B7F /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = F1D4C1E61FD316FC00F28B7F /* OpenCVWrapper.mm */; };
+		F1F5EF4C1FD8709700289ED4 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F5EF4B1FD8709700289ED4 /* ProgressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		F1D4C1E41FD316FC00F28B7F /* QuickDraw-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickDraw-Bridging-Header.h"; sourceTree = "<group>"; };
 		F1D4C1E51FD316FC00F28B7F /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
 		F1D4C1E61FD316FC00F28B7F /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		F1F5EF4B1FD8709700289ED4 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				F1B12D4B1FCA1D3D002C55F0 /* AppDelegate.swift */,
 				F1B12D4F1FCA1D3D002C55F0 /* Main.storyboard */,
 				F1B12D601FCA1D82002C55F0 /* ArtViewController.swift */,
+				F1F5EF4B1FD8709700289ED4 /* ProgressView.swift */,
 				F1B12D551FCA1D3D002C55F0 /* Assets.xcassets */,
 				F1B12D621FCA210B002C55F0 /* ViewController.swift */,
 				F1B12D571FCA1D3D002C55F0 /* LaunchScreen.storyboard */,
@@ -249,6 +252,7 @@
 				F1B12D4C1FCA1D3D002C55F0 /* AppDelegate.swift in Sources */,
 				F1B12D631FCA210B002C55F0 /* ViewController.swift in Sources */,
 				F1B12D541FCA1D3D002C55F0 /* QuickDraw.xcdatamodeld in Sources */,
+				F1F5EF4C1FD8709700289ED4 /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

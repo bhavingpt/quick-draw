@@ -34,7 +34,7 @@
                                             <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LOD-Lu-xco"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xnf-u2-a1F" userLabel="Progress">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xnf-u2-a1F" userLabel="Progress" customClass="ProgressView" customModule="QuickDraw" customModuleProvider="target">
                                         <rect key="frame" x="20" y="94" width="334" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
@@ -42,11 +42,11 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="13"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" red="0.0" green="0.80668402780000004" blue="0.79996166089999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.31313657407407403" green="0.42018206603840769" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="akshaykg" translatesAutoresizingMaskIntoConstraints="NO" id="t0i-Ec-PGS">
                                         <rect key="frame" x="48" y="36" width="47" height="47"/>
@@ -108,15 +108,24 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ez5-rk-9aT">
-                                        <rect key="frame" x="8" y="8" width="36" height="33"/>
+                                        <rect key="frame" x="8" y="12" width="36" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="EraserIcon"/>
                                         <connections>
                                             <action selector="switchTool:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Zw-Ru-3Ge"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fz0-mV-Jyd">
+                                        <rect key="frame" x="164" y="8" width="46" height="39"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="trophy"/>
+                                        <connections>
+                                            <action selector="trophyDown:" destination="BYZ-38-t0r" eventType="touchDown" id="w5Y-OU-WUS"/>
+                                            <action selector="trophyUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zbp-He-js0"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Df1-GV-YB6">
-                                        <rect key="frame" x="335" y="9" width="32" height="30"/>
+                                        <rect key="frame" x="335" y="13" width="32" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="array">
                                             <color key="titleColor" red="0.0045769144290000001" green="0.69406828700000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -125,21 +134,6 @@
                                             <action selector="endTurn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x4S-u4-P5e"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fz0-mV-Jyd">
-                                        <rect key="frame" x="173" y="23" width="28" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button" image="trophy"/>
-                                        <connections>
-                                            <action selector="trophyDown:" destination="BYZ-38-t0r" eventType="touchDown" id="w5Y-OU-WUS"/>
-                                            <action selector="trophyUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zbp-He-js0"/>
-                                        </connections>
-                                    </button>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" progress="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="Rem-Y7-wWq">
-                                        <rect key="frame" x="112" y="9" width="150" height="2.5"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="progressTintColor" red="0.0045769144290000001" green="0.69406828700000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </progressView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -153,7 +147,7 @@
                         <outlet property="imageView" destination="ZNh-U6-ItP" id="HVB-XE-5ST"/>
                         <outlet property="playerOneName" destination="k7b-gE-RVT" id="um4-We-CkF"/>
                         <outlet property="playerTwoName" destination="mtz-qW-oQg" id="ZbU-MJ-quC"/>
-                        <outlet property="progress" destination="Rem-Y7-wWq" id="vM8-wW-MXa"/>
+                        <outlet property="progress" destination="Xnf-u2-a1F" id="Mgh-dq-kcQ"/>
                         <outlet property="scoreOne" destination="yeo-cB-3rJ" id="rwy-Tu-k86"/>
                         <outlet property="scoreTwo" destination="sst-r7-0GF" id="Ddc-Oh-xxo"/>
                         <outlet property="toolButton" destination="Ez5-rk-9aT" id="YPc-U6-qTe"/>
