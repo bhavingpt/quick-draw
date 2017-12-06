@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BAA1447744A4CA9C298A19B6 /* Pods_QuickDraw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831A0F4416AD3F1717CD65B2 /* Pods_QuickDraw.framework */; };
 		F1919EF71FD5C4E8002D8631 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1919EF61FD5C4E8002D8631 /* UIKit.framework */; };
+		F1A9C1881FD89CF3003AC564 /* clockticking.wav in Resources */ = {isa = PBXBuildFile; fileRef = F1A9C1871FD89CEB003AC564 /* clockticking.wav */; };
 		F1B12D4C1FCA1D3D002C55F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B12D4B1FCA1D3D002C55F0 /* AppDelegate.swift */; };
 		F1B12D511FCA1D3D002C55F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1B12D4F1FCA1D3D002C55F0 /* Main.storyboard */; };
 		F1B12D541FCA1D3D002C55F0 /* QuickDraw.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1B12D521FCA1D3D002C55F0 /* QuickDraw.xcdatamodeld */; };
@@ -25,6 +26,7 @@
 		831A0F4416AD3F1717CD65B2 /* Pods_QuickDraw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickDraw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA4DA89463FD8B2610902E9F /* Pods-QuickDraw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickDraw.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw.release.xcconfig"; sourceTree = "<group>"; };
 		F1919EF61FD5C4E8002D8631 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F1A9C1871FD89CEB003AC564 /* clockticking.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = clockticking.wav; sourceTree = "<group>"; };
 		F1B12D481FCA1D3D002C55F0 /* QuickDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1B12D4B1FCA1D3D002C55F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1B12D501FCA1D3D002C55F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				F1B12D571FCA1D3D002C55F0 /* LaunchScreen.storyboard */,
 				F1B12D5A1FCA1D3D002C55F0 /* Info.plist */,
 				F1B12D521FCA1D3D002C55F0 /* QuickDraw.xcdatamodeld */,
+				F1A9C1871FD89CEB003AC564 /* clockticking.wav */,
 			);
 			path = QuickDraw;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1B12D591FCA1D3D002C55F0 /* LaunchScreen.storyboard in Resources */,
+				F1A9C1881FD89CF3003AC564 /* clockticking.wav in Resources */,
 				F1B12D561FCA1D3D002C55F0 /* Assets.xcassets in Resources */,
 				F1B12D511FCA1D3D002C55F0 /* Main.storyboard in Resources */,
 			);

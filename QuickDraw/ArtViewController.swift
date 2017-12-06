@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import AVFoundation
 
 class ArtViewController: UIViewController {
 
@@ -16,6 +17,7 @@ class ArtViewController: UIViewController {
     @IBOutlet weak var toolButton: UIButton!
     @IBOutlet weak var delay: UIActivityIndicatorView!
     @IBOutlet weak var trophy: UIButton!
+    @IBOutlet weak var divider: UIImageView!
     
     // MARK: Customizable presettings
     let max_length: CGFloat = 250.0
@@ -29,6 +31,7 @@ class ArtViewController: UIViewController {
     var timer = Timer()
     var visionTimer = Timer()
     var startedTimer: Bool = false
+    var timeEffect: AVAudioPlayer?
     
     var storedImage: UIImage?
     var displayingWin: Bool = false
@@ -62,6 +65,14 @@ class ArtViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: "clockticking", ofType: "wav")!)
+        
+        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        try! AVAudioSession.sharedInstance().setActive(true)
+        
+        try! timeEffect = AVAudioPlayer(contentsOf: alertSound)
+        timeEffect?.numberOfLoops = -1
     
         print (cv2.openCVVersionString())
         required[0] = Int( cv2.score(#imageLiteral(resourceName: "winOne"), to: #imageLiteral(resourceName: "winOne")) )
@@ -69,6 +80,7 @@ class ArtViewController: UIViewController {
         
         self.imageView.image = #imageLiteral(resourceName: "empty")
         delay.isHidden = true
+        divider.isHidden = false
         delay.stopAnimating()
         scoreOne.isHidden = false
         scoreTwo.isHidden = false
@@ -110,7 +122,12 @@ class ArtViewController: UIViewController {
             }
             
             let percent = Float(max_length - remaining) / Float(max_length)
-            progress.setNeedsDisplay(CGRect(x: 0.0, y: 0.0, width: CGFloat(percent) * progress.bounds.width, height: progress.bounds.width))
+            
+            if (percent < 0.95) {
+                progress.setNeedsDisplay(CGRect(x: 0.0, y: 0.0, width: CGFloat(percent) * progress.bounds.width, height: progress.bounds.width))
+            } else {
+                progress.setNeedsDisplay()
+            }
             
             let pic = imageView.image!
             let originX = imageView.frame.origin.x
@@ -146,8 +163,9 @@ class ArtViewController: UIViewController {
             UIGraphicsEndImageContext()
         }
         
-        if (remaining < 10 && !startedTimer && !delay.isAnimating) {
+        if (remaining <= (0.05 * max_length) && !startedTimer && !delay.isAnimating) {
             startedTimer = true
+            timeEffect?.play()
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         }
     }
@@ -197,6 +215,7 @@ class ArtViewController: UIViewController {
         scoreOne.isHidden = true
         scoreTwo.isHidden = true
         delay.isHidden = false
+        divider.isHidden = true
         delay.startAnimating()
         
         visionTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(updateScores), userInfo: nil, repeats: false)
@@ -219,6 +238,7 @@ class ArtViewController: UIViewController {
         visionTimer.invalidate()
         
         delay.isHidden = true
+        divider.isHidden = false
         delay.stopAnimating()
         
         scoreOne.text = "\(score[0])"
@@ -243,6 +263,7 @@ class ArtViewController: UIViewController {
         timer.invalidate()
         clock = countdown
         startedTimer = false
+        timeEffect?.stop()
     }
     
     @objc func updateTimer() {
