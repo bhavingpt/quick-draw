@@ -241,8 +241,8 @@ class ArtViewController: UIViewController {
         divider.isHidden = false
         delay.stopAnimating()
         
-        scoreOne.text = "\(score[0])"
-        scoreTwo.text = "\(score[1])"
+        scoreOne.text = "\(score[0])/\(required[0])"
+        scoreTwo.text = "\(score[1])/\(required[1])"
         
         scoreOne.isHidden = false
         scoreTwo.isHidden = false
@@ -292,15 +292,16 @@ class ArtViewController: UIViewController {
     }
     
     func similarity(input: UIImage) -> [Int] {
+        
+        // TODO YOU SHOULD PRECOMPUTE THE CENTER OF GRAVITY AND AVERAGE DISTANCE!!
+
         if self.imageView.image == nil {
             return [0, 0]
         }
         
-        var boost = Int(arc4random_uniform(25));
-        let playerOneTarget: Int = boost + Int( 100 * Float(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winOne"))) / Float(required[0]) )
+        let playerOneTarget: Int = Int( 100 * Float(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winOne"))) / Float(required[0]) )
         
-        boost = Int(arc4random_uniform(25));
-        let playerTwoTarget: Int = boost + Int( 100 * Float(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winTwo"))) / Float(required[1]) )
+        let playerTwoTarget: Int = Int( 100 * Float(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winTwo"))) / Float(required[1]) )
         
         return [playerOneTarget, playerTwoTarget]
     }
