@@ -45,14 +45,18 @@ using namespace cv;
     int a = [OpenCVWrapper hausdorff: input to: target];
     int b = [OpenCVWrapper hausdorff: target to: input];
 
-    printf("scores were %d and %d\n", a, b);
+    printf("    scores were %d and %d\n", a, b);
     return MAX(a, b);
 }
 
 + (int) hausdorff: (Mat) test to: (Mat) reference_img {
+    
     Mat distances(reference_img.size(), reference_img.type());
-    distanceTransform(reference_img, distances, CV_DIST_L1, 3);
-    normalize(distances, distances, 0, 255, NORM_MINMAX);
+    Mat labels;
+    distanceTransform(reference_img, distances, labels, CV_DIST_L2, CV_DIST_MASK_PRECISE, CV_DIST_LABEL_PIXEL);
+    
+    Mat normalized(reference_img.size(), reference_img.type());
+    normalize(distances, normalized, 0, 255, NORM_MINMAX);
     
     int total = 0;
     int count = 0;
@@ -63,8 +67,18 @@ using namespace cv;
                 count++;
                 int x = int((float(i) / test.rows) * distances.rows);
                 int y = int((float(j) / test.cols) * distances.cols);
+                
+                if (distances.at<uchar>(x, y) != 0) {
+                    printf("at %d %d\n", i, j);
+                    printf("    had value %d in test\n", test.at<uchar>(i, j));
+                    printf("    had value %d in ref\n", reference_img.at<uchar>(i, j));
+                    printf("    had value %d in dt ref\n", distances.at<uchar>(i, j));
+                    printf("    associated label was %d\n", labels.at<uchar>(i, j));
+                    printf("    had value %d in norm ref\n", normalized.at<uchar>(i, j));
+
+                }
+                
                 total += distances.at<uchar>(x, y);
-                printf("pixel on at (%d, %d). It's distance was %d\n", i, j, distances.at<uchar>(x, y));
             }
         }
     }

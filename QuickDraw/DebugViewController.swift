@@ -22,14 +22,12 @@ class DebugViewController: UIViewController {
                 
         one.image = #imageLiteral(resourceName: "winOne")
         two.image = #imageLiteral(resourceName: "debug")
-        
-        let out1: UIImage = cv2.process(one.image, to: two.image)
-        three.image = one.image
-        four.image = out1
-        
-        let score = cv2.score(three.image, to: four.image)
-        
-        print("received \(score)")
+        three.image = #imageLiteral(resourceName: "winTwo")
+        four.image = cv2.process(one.image, to: two.image)
+    
+        print("scoring reference house against reference house")
+        let score = cv2.score(one.image, to: one.image)
+        print("received \(score)\n")
     }
 
     override func didReceiveMemoryWarning() {
