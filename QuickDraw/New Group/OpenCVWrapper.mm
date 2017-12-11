@@ -36,7 +36,23 @@ using namespace cv;
     return [NSString stringWithFormat:@"OpenCV Version %s", CV_VERSION];
 }
 
-// DO NOT use this method without precomputing things about the target image...
+- (UIImage *) dt: (UIImage *) target {
+    Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: target]]];
+    Mat output;
+    distanceTransform(input, output, CV_DIST_L1, 3);
+    return [OpenCVWrapper convert_back: output];
+}
+
+- (int) score: (UIImage *) inputImg to: (UIImage *) targetImg {
+    UIImage* processedInputImg = [self process: targetImg to: inputImg];
+    Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: processedInputImg]]];
+    Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: targetImg]]];
+    
+    distanceTransform(target, target, CV_DIST_L1, 3);
+
+    return 0;
+}
+
 - (UIImage *) process: (UIImage *) target_img to: (UIImage *) input_img {
     
     // gray out, convert, and threshold both images
@@ -312,7 +328,7 @@ using namespace cv;
 /* ------------------------------- Below here are failed similarity attempts -------------------------------*/
 
 
-- (int) score: (UIImage *) inputOne to: (UIImage *) inputTwo {
+- (int) old_score: (UIImage *) inputOne to: (UIImage *) inputTwo {
     UIImage* inputGray = [OpenCVWrapper gray: inputOne];
     UIImage* testGray = [OpenCVWrapper gray: inputTwo];
     
