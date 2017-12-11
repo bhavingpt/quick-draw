@@ -24,8 +24,12 @@ class DebugViewController: UIViewController {
         two.image = #imageLiteral(resourceName: "debug")
         
         let out1: UIImage = cv2.process(one.image, to: two.image)
-        three.image = cv2.dt(one.image)
+        three.image = one.image
         four.image = out1
+        
+        let score = cv2.score(three.image, to: four.image)
+        
+        print("received \(score)")
     }
 
     override func didReceiveMemoryWarning() {

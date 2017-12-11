@@ -36,21 +36,40 @@ using namespace cv;
     return [NSString stringWithFormat:@"OpenCV Version %s", CV_VERSION];
 }
 
-- (UIImage *) dt: (UIImage *) target {
-    Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: target]]];
-    Mat output;
-    distanceTransform(input, output, CV_DIST_L1, 3);
-    return [OpenCVWrapper convert_back: output];
-}
-
 - (int) score: (UIImage *) inputImg to: (UIImage *) targetImg {
     UIImage* processedInputImg = [self process: targetImg to: inputImg];
+    
     Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: processedInputImg]]];
     Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: targetImg]]];
     
-    distanceTransform(target, target, CV_DIST_L1, 3);
+    int a = [OpenCVWrapper hausdorff: input to: target];
+    int b = [OpenCVWrapper hausdorff: target to: input];
 
-    return 0;
+    printf("scores were %d and %d\n", a, b);
+    return MAX(a, b);
+}
+
++ (int) hausdorff: (Mat) test to: (Mat) reference_img {
+    Mat distances(reference_img.size(), reference_img.type());
+    distanceTransform(reference_img, distances, CV_DIST_L1, 3);
+    normalize(distances, distances, 0, 255, NORM_MINMAX);
+    
+    int total = 0;
+    int count = 0;
+    
+    for (int j = 0; j < test.cols; j++) {
+        for (int i = 0; i < test.rows; i++) {
+            if (test.at<uchar>(i, j) == 0) {
+                count++;
+                int x = int((float(i) / test.rows) * distances.rows);
+                int y = int((float(j) / test.cols) * distances.cols);
+                total += distances.at<uchar>(x, y);
+                printf("pixel on at (%d, %d). It's distance was %d\n", i, j, distances.at<uchar>(x, y));
+            }
+        }
+    }
+
+    return int(float(total) / count);
 }
 
 - (UIImage *) process: (UIImage *) target_img to: (UIImage *) input_img {
@@ -277,6 +296,46 @@ using namespace cv;
     CGContextRelease(contextRef);
     
     return cvMat;
+}
+
++ (UIImage*) fromCVMat:(const cv::Mat&)cvMat
+{
+    // (1) Construct the correct color space
+    CGColorSpaceRef colorSpace;
+    if ( cvMat.channels() == 1 ) {
+        colorSpace = CGColorSpaceCreateDeviceGray();
+    } else {
+        colorSpace = CGColorSpaceCreateDeviceRGB();
+    }
+    
+    // (2) Create image data reference
+    CFDataRef data = CFDataCreate(kCFAllocatorDefault, cvMat.data, (cvMat.elemSize() * cvMat.total()));
+    
+    // (3) Create CGImage from cv::Mat container
+    CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);
+    CGImageRef imageRef = CGImageCreate(cvMat.cols,
+                                        cvMat.rows,
+                                        8,
+                                        8 * cvMat.elemSize(),
+                                        cvMat.step[0],
+                                        colorSpace,
+                                        kCGImageAlphaNone | kCGBitmapByteOrderDefault,
+                                        provider,
+                                        NULL,
+                                        false,
+                                        kCGRenderingIntentDefault);
+    
+    // (4) Create UIImage from CGImage
+    UIImage * finalImage = [UIImage imageWithCGImage:imageRef];
+    
+    // (5) Release the references
+    CGImageRelease(imageRef);
+    CGDataProviderRelease(provider);
+    CFRelease(data);
+    CGColorSpaceRelease(colorSpace);
+    
+    // (6) Return the UIImage instance
+    return finalImage;
 }
 
 + (UIImage *) convert_back: (Mat) cvMat {

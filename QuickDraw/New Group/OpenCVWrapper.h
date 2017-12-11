@@ -15,7 +15,5 @@
 -(NSString *) openCVVersionString;
 - (int) score: (UIImage *) inputImg to: (UIImage *) targetImg;
 - (UIImage *) process: (UIImage *) target_img to: (UIImage *) input_img;
-- (UIImage *) dt: (UIImage *) target;
-
 
 @end
