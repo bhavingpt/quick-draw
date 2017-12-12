@@ -24,11 +24,12 @@ class DebugViewController: UIViewController {
         two.image = #imageLiteral(resourceName: "debug")
         three.image = #imageLiteral(resourceName: "winTwo")
         four.image = cv2.process(one.image, to: two.image)
+        var score: Int32;
     
-        print("\n\n------------------ basic checks ------------\n\n");
-
+        /*print("\n\n------------------ basic checks ------------\n\n");
+      
         print("scoring reference house against reference house")
-        var score = cv2.score(one.image, to: one.image)
+        score = cv2.score(one.image, to: one.image)
         print("received \(score)\n")
         
         print("scoring reference flower against reference flower")
@@ -37,11 +38,11 @@ class DebugViewController: UIViewController {
         
         print("\n\n------------------ shitty checks ------------\n\n");
         
-        print("scoring reference house against shitty house")
+        */print("scoring reference house against shitty house")
         score = cv2.score(one.image, to: two.image)
         print("received \(score)\n")
         
-        print("scoring reference flower against shitty house")
+        /*print("scoring reference flower against shitty house")
         score = cv2.score(three.image, to: two.image)
         print("received \(score)\n")
         
@@ -53,7 +54,7 @@ class DebugViewController: UIViewController {
         
         print("scoring reference flower against modified house")
         score = cv2.score(three.image, to: four.image)
-        print("received \(score)\n")
+        print("received \(score)\n")*/
     }
 
     override func didReceiveMemoryWarning() {

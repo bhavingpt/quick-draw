@@ -51,14 +51,15 @@ using namespace cv;
     Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: targetImg]]];
     
     int a = [OpenCVWrapper hausdorff: input to: target];
-    int b = [OpenCVWrapper hausdorff: target to: input];
+    printf("score was %d\n", a);
+    return a;
+    //int b = [OpenCVWrapper hausdorff: target to: input];
 
-    printf("    scores were %d and %d\n", a, b);
-    return MAX(a, b);
+    //printf("    scores were %d and %d\n", a, b);
+    //return MAX(a, b);
 }
 
 + (int) hausdorff: (Mat) test to: (Mat) reference_img {
-    
     Mat distances = reference_img.clone();
     distances = [OpenCVWrapper fix_distances: distances iteration: 0];
  
@@ -70,6 +71,7 @@ using namespace cv;
                 int x = int((float(i) / test.rows) * distances.rows);
                 int y = int((float(j) / test.cols) * distances.cols);
                 
+                printf("pixel (%d, %d) in your test image had a distance of %d\n", i, j, distances.at<uchar>(x, y));
                 current_max = MAX(current_max, distances.at<uchar>(x, y));
             }
         }
@@ -225,7 +227,7 @@ using namespace cv;
 /* ------------------------------- Below here are bottom-level helper methods -------------------------------*/
 
 + (Mat) fix_distances: (Mat) distances iteration: (int) iteration {
-    if (iteration == 50) {
+    if (iteration == 75) {
         return distances;
     } else {
         Mat next = distances.clone();
@@ -246,9 +248,7 @@ using namespace cv;
                         CGPoint p = [val CGPointValue];
                         
                         if (p.x >= 0 && p.x < distances.rows && p.y >= 0 && p.y < distances.cols) {
-                            if (distances.at<uchar>(int(p.x), int(p.y)) > iteration + 1) {
-                                next.at<uchar>(int(p.x), int(p.y)) = iteration + 1;
-                            }
+                            next.at<uchar>(int(p.x), int(p.y)) = MIN(next.at<uchar>(int(p.x), int(p.y)), iteration + 1);
                         }
                     }
                 }
