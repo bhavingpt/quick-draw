@@ -63,29 +63,19 @@ using namespace cv;
     Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: inputImg]]];
     
     int a = [OpenCVWrapper hausdorff: input to: target];
-    printf("    received score of %d\n", a);
-    return a;
     
-    //printf("\n");
-    //int b = [OpenCVWrapper hausdorff: target to: input];
+    //printf("\n    starting flipped hausdorff distance\n");
     
-    //printf("    scores were %d and %d\n", a, b);
-    //return MAX(a, b);
+    int b = [OpenCVWrapper hausdorff: target to: input];
+    
+    printf("     scores were %d and %d\n", a, b);
+    return MAX(a, b);
 }
 
 
 + (int) hausdorff: (Mat) test to: (Mat) reference_img {
     Mat distances = reference_img.clone();
     distances = [OpenCVWrapper fix_distances: distances iteration: 0];
-    
-    //printf("pixel in test, 583x327: %d\n", test.at<uchar>(583, 327));
-    //printf("pixel in dist, 419x323: %d\n", distances.at<uchar>(419, 323));
-    
-    for (int i = -10; i < 10; i++) {
-        for (int j = -10; j < 10; j++) {
-            //printf("reference pixel %dx%d: %d\n", (419+i), (323+j), reference_img.at<uchar>(419+i,323+j));
-        }
-    }
  
     int current_max = 0;
     
@@ -96,12 +86,9 @@ using namespace cv;
                 int y = int((float(j) / test.cols) * distances.cols);
                 
                 if (distances.at<uchar>(x, y) > current_max) {
-                    printf("    pixel (%d, %d) in your test image had a distance of %d, found at  (%d, %d)\n", i, j, distances.at<uchar>(x, y), x, y);
                     current_max = distances.at<uchar>(x, y);
-
+                    //printf("    point (%d, %d) in test image had a distance of %d\n", i, j, current_max);
                 }
-                //printf("pixel (%d, %d) in your test image had a distance of %d, found at  %d, %d\n", i, j, distances.at<uchar>(x, y), x, y);
-                current_max = MAX(current_max, distances.at<uchar>(x, y));
             }
         }
     }
@@ -110,7 +97,7 @@ using namespace cv;
 }
 
 + (Mat) fix_distances: (Mat) distances iteration: (int) iteration {
-    if (iteration == 75) {
+    if (iteration == 100) {
         return distances;
     } else {
         Mat next = distances.clone();
@@ -118,7 +105,6 @@ using namespace cv;
         for (int j = 0; j < distances.cols; j++) {
             for (int i = 0; i < distances.rows; i++) {
                 if (distances.at<uchar>(i, j) == iteration) {
-                    // TODO the pixels around us may need to be updated
                     NSArray* points = [NSArray arrayWithObjects:
                                        [NSValue valueWithCGPoint:CGPointMake(i - 1, j)],
                                        [NSValue valueWithCGPoint:CGPointMake(i + 1, j)],
