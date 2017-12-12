@@ -52,12 +52,16 @@ using namespace cv;
 + (int) hausdorff: (Mat) test to: (Mat) reference_img {
     
     Mat distances(reference_img.size(), reference_img.type());
-    Mat labels;
-    distanceTransform(reference_img, distances, labels, CV_DIST_L2, CV_DIST_MASK_PRECISE, CV_DIST_LABEL_PIXEL);
-    
-    Mat normalized(reference_img.size(), reference_img.type());
-    normalize(distances, normalized, 0, 255, NORM_MINMAX);
-    
+
+    for (int j = 0; j < reference_img.cols; j++) {
+        for (int i = 0; i < reference_img.rows; i++) {
+            NSMutableSet* set = [NSMutableSet setWithCapacity: reference_img.rows * reference_img.cols / 10];
+            int distance = [OpenCVWrapper bfs: reference_img atx: i aty: j iter: 0 set: set];
+            printf("found the distance of pixel %d, %d to be %d\n", i, j, distance);
+            distances.at<uchar>(i, j) = distance;
+        }
+    }
+ 
     int total = 0;
     int count = 0;
     
@@ -69,13 +73,10 @@ using namespace cv;
                 int y = int((float(j) / test.cols) * distances.cols);
                 
                 if (distances.at<uchar>(x, y) != 0) {
-                    printf("at %d %d\n", i, j);
+                    printf("at %d %d in original, %d %d in new\n", i, j, x, y);
                     printf("    had value %d in test\n", test.at<uchar>(i, j));
-                    printf("    had value %d in ref\n", reference_img.at<uchar>(i, j));
-                    printf("    had value %d in dt ref\n", distances.at<uchar>(i, j));
-                    printf("    associated label was %d\n", labels.at<uchar>(i, j));
-                    printf("    had value %d in norm ref\n", normalized.at<uchar>(i, j));
-
+                    printf("    had value %d in ref\n", reference_img.at<uchar>(x, y));
+                    printf("    had value %d in dt ref\n", distances.at<uchar>(x, y));
                 }
                 
                 total += distances.at<uchar>(x, y);
@@ -231,6 +232,54 @@ using namespace cv;
 }
 
 /* ------------------------------- Below here are bottom-level helper methods -------------------------------*/
+
++ (int) bfs: (Mat) img atx: (int) x aty: (int) y iter: (int) depth set: (NSMutableSet*) set {
+    if (depth > 10 || img.at<uchar>(x, y) == 0) {
+        return depth;
+    } else {
+        NSMutableArray* next = [NSMutableArray new];
+        NSMutableArray* next_vals = [NSMutableArray new];
+        NSArray* points = [NSArray arrayWithObjects:
+                           [NSValue valueWithCGPoint:CGPointMake(x - 1, y)],
+                           [NSValue valueWithCGPoint:CGPointMake(x + 1, y)],
+                           [NSValue valueWithCGPoint:CGPointMake(x, y - 1)],
+                           [NSValue valueWithCGPoint:CGPointMake(x, y + 1)],
+                           nil];
+        
+        for (int i = 0; i < 4; i++) {
+            NSValue *val = [points objectAtIndex: i];
+            CGPoint p = [val CGPointValue];
+            
+            if (p.x >= 0 && p.x < img.rows && p.y >= 0 && p.y < img.cols && ![set containsObject: val]) {
+                [next addObject: val];
+            }
+        }
+        
+        for (int i = 0; i < [next count]; i++) {
+            NSValue *val = [next objectAtIndex: i];
+            CGPoint p = [val CGPointValue];
+            
+            NSMutableSet* new_set = [NSMutableSet setWithSet: set];
+            [new_set addObject: val];
+            
+            int returned = [OpenCVWrapper bfs: img atx: int(p.x) aty: int(p.y) iter: depth + 1 set: new_set];
+            NSNumber* wrap = [NSNumber numberWithInt: returned];
+            [next_vals addObject: wrap];
+        }
+        
+        int best_val = 20;
+        for (int i = 0; i < [next_vals count]; i++) {
+            NSNumber* wrap = [next_vals objectAtIndex: i];
+            int this_val = int([wrap integerValue]);
+            if (this_val < best_val) {
+                best_val = this_val;
+            }
+        }
+        
+        return best_val;
+    }
+    
+}
 
 + (Mat) threshold: (Mat) image {
     Mat output(image.size(), image.type());
