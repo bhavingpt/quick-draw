@@ -41,7 +41,6 @@ class ArtViewController: UIViewController {
     let cv2 = OpenCVWrapper()
     
     var score: [Int] = [0, 0]
-    var required: [Int] = [0, 0]
     @IBOutlet weak var scoreOne: UILabel!
     @IBOutlet weak var scoreTwo: UILabel!
     
@@ -75,8 +74,6 @@ class ArtViewController: UIViewController {
         timeEffect?.numberOfLoops = -1
     
         print (cv2.openCVVersionString())
-        required[0] = Int( cv2.score(#imageLiteral(resourceName: "winOne"), to: #imageLiteral(resourceName: "winOne")) )
-        required[1] = Int( cv2.score(#imageLiteral(resourceName: "winTwo"), to: #imageLiteral(resourceName: "winTwo")) )
         
         self.imageView.image = #imageLiteral(resourceName: "empty")
         delay.isHidden = true
@@ -241,8 +238,8 @@ class ArtViewController: UIViewController {
         divider.isHidden = false
         delay.stopAnimating()
         
-        scoreOne.text = "\(score[0])/\(required[0])"
-        scoreTwo.text = "\(score[1])/\(required[1])"
+        scoreOne.text = "\(score[0])"
+        scoreTwo.text = "\(score[1])"
         
         scoreOne.isHidden = false
         scoreTwo.isHidden = false
@@ -299,11 +296,10 @@ class ArtViewController: UIViewController {
             return [0, 0]
         }
         
-        let playerOneTarget: Int = Int( 100 * Float(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winOne"))) / Float(required[0]) )
+        let playerOneTarget: Int32 = 255 - cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winOne"))
+        let playerTwoTarget: Int32 = 255 - cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winTwo"))
         
-        let playerTwoTarget: Int = Int( 100 * Float(cv2.score(self.imageView.image!, to: #imageLiteral(resourceName: "winTwo"))) / Float(required[1]) )
-        
-        return [playerOneTarget, playerTwoTarget]
+        return [Int(100 * Float(playerOneTarget) / 255), Int(100 * Float(playerTwoTarget) / 255)]
     }
     
     // Useless things

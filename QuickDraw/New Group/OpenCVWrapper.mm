@@ -15,6 +15,9 @@
 #import <opencv2/features2d/features2d.hpp>
 #import "OpenCVWrapper.h" // THIS MUST BE THE LAST IMPORT LINE
 
+#define TICK   NSDate *startTime = [NSDate date]
+#define TOCK   NSLog(@"Time: %f", -[startTime timeIntervalSinceNow])
+
 using namespace std;
 using namespace cv;
 
@@ -37,6 +40,8 @@ using namespace cv;
 }
 
 - (int) score: (UIImage *) inputImg to: (UIImage *) targetImg {
+    TICK;
+    
     Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: targetImg]]];
     Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: inputImg]]];
     
@@ -47,10 +52,15 @@ using namespace cv;
     int b = [OpenCVWrapper hausdorff: target to: input];
 
     printf("    scores were %d and %d\n", a, b);
+    
+    TOCK;
+    
     return MAX(a, b);
 }
 
 - (int) hausdorff_wrap: (UIImage *) inputImg to: (UIImage *) targetImg {
+    TICK;
+    
     Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: targetImg]]];
     Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: inputImg]]];
     
@@ -58,6 +68,7 @@ using namespace cv;
     int b = [OpenCVWrapper hausdorff: target to: input];
     
     printf("     scores were %d and %d\n", a, b);
+    TOCK;
     return MAX(a, b);
 }
 
