@@ -15,6 +15,6 @@
 - (NSString *) openCVVersionString;
 - (int) score: (UIImage *) inputImg to: (UIImage *) targetImg;
 - (UIImage *) process: (UIImage *) target_img to: (UIImage *) input_img;
-- (UIImage *) test_dt: (UIImage *) input;
+- (int) hausdorff_wrap: (UIImage *) test to: (UIImage *) reference_img;
 
 @end

@@ -45,23 +45,47 @@ using namespace cv;
 }
 
 - (int) score: (UIImage *) inputImg to: (UIImage *) targetImg {
-    UIImage* processedInputImg = [self process: targetImg to: inputImg];
-    
-    Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: processedInputImg]]];
     Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: targetImg]]];
+    Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: inputImg]]];
+    
+    input = [OpenCVWrapper shift: target to: input];
+    input = [OpenCVWrapper scale: target to: input];
     
     int a = [OpenCVWrapper hausdorff: input to: target];
-    printf("score was %d\n", a);
-    return a;
-    //int b = [OpenCVWrapper hausdorff: target to: input];
+    int b = [OpenCVWrapper hausdorff: target to: input];
 
+    printf("    scores were %d and %d\n", a, b);
+    return MAX(a, b);
+}
+
+- (int) hausdorff_wrap: (UIImage *) inputImg to: (UIImage *) targetImg {
+    Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: targetImg]]];
+    Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: inputImg]]];
+    
+    int a = [OpenCVWrapper hausdorff: input to: target];
+    printf("    received score of %d\n", a);
+    return a;
+    
+    //printf("\n");
+    //int b = [OpenCVWrapper hausdorff: target to: input];
+    
     //printf("    scores were %d and %d\n", a, b);
     //return MAX(a, b);
 }
 
+
 + (int) hausdorff: (Mat) test to: (Mat) reference_img {
     Mat distances = reference_img.clone();
     distances = [OpenCVWrapper fix_distances: distances iteration: 0];
+    
+    //printf("pixel in test, 583x327: %d\n", test.at<uchar>(583, 327));
+    //printf("pixel in dist, 419x323: %d\n", distances.at<uchar>(419, 323));
+    
+    for (int i = -10; i < 10; i++) {
+        for (int j = -10; j < 10; j++) {
+            //printf("reference pixel %dx%d: %d\n", (419+i), (323+j), reference_img.at<uchar>(419+i,323+j));
+        }
+    }
  
     int current_max = 0;
     
@@ -71,7 +95,12 @@ using namespace cv;
                 int x = int((float(i) / test.rows) * distances.rows);
                 int y = int((float(j) / test.cols) * distances.cols);
                 
-                printf("pixel (%d, %d) in your test image had a distance of %d\n", i, j, distances.at<uchar>(x, y));
+                if (distances.at<uchar>(x, y) > current_max) {
+                    printf("    pixel (%d, %d) in your test image had a distance of %d, found at  (%d, %d)\n", i, j, distances.at<uchar>(x, y), x, y);
+                    current_max = distances.at<uchar>(x, y);
+
+                }
+                //printf("pixel (%d, %d) in your test image had a distance of %d, found at  %d, %d\n", i, j, distances.at<uchar>(x, y), x, y);
                 current_max = MAX(current_max, distances.at<uchar>(x, y));
             }
         }
@@ -80,8 +109,41 @@ using namespace cv;
     return current_max;
 }
 
++ (Mat) fix_distances: (Mat) distances iteration: (int) iteration {
+    if (iteration == 75) {
+        return distances;
+    } else {
+        Mat next = distances.clone();
+        
+        for (int j = 0; j < distances.cols; j++) {
+            for (int i = 0; i < distances.rows; i++) {
+                if (distances.at<uchar>(i, j) == iteration) {
+                    // TODO the pixels around us may need to be updated
+                    NSArray* points = [NSArray arrayWithObjects:
+                                       [NSValue valueWithCGPoint:CGPointMake(i - 1, j)],
+                                       [NSValue valueWithCGPoint:CGPointMake(i + 1, j)],
+                                       [NSValue valueWithCGPoint:CGPointMake(i, j - 1)],
+                                       [NSValue valueWithCGPoint:CGPointMake(i, j + 1)],
+                                       nil];
+                    
+                    for (int i = 0; i < 4; i++) {
+                        NSValue *val = [points objectAtIndex: i];
+                        CGPoint p = [val CGPointValue];
+                        
+                        if (p.x >= 0 && p.x < distances.rows && p.y >= 0 && p.y < distances.cols) {
+                            next.at<uchar>(int(p.x), int(p.y)) = MIN(next.at<uchar>(int(p.x), int(p.y)), iteration + 1);
+                        }
+                    }
+                }
+            }
+        }
+        
+        // we've updated the whole array
+        return [OpenCVWrapper fix_distances: next iteration: iteration + 1];
+    }
+}
+
 - (UIImage *) process: (UIImage *) target_img to: (UIImage *) input_img {
-    
     // gray out, convert, and threshold both images
     Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: target_img]]];
     Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: input_img]]];
@@ -226,39 +288,7 @@ using namespace cv;
 
 /* ------------------------------- Below here are bottom-level helper methods -------------------------------*/
 
-+ (Mat) fix_distances: (Mat) distances iteration: (int) iteration {
-    if (iteration == 75) {
-        return distances;
-    } else {
-        Mat next = distances.clone();
-        
-        for (int j = 0; j < distances.cols; j++) {
-            for (int i = 0; i < distances.rows; i++) {
-                if (distances.at<uchar>(i, j) == iteration) {
-                    // TODO the pixels around us may need to be updated
-                    NSArray* points = [NSArray arrayWithObjects:
-                                       [NSValue valueWithCGPoint:CGPointMake(i - 1, j)],
-                                       [NSValue valueWithCGPoint:CGPointMake(i + 1, j)],
-                                       [NSValue valueWithCGPoint:CGPointMake(i, j - 1)],
-                                       [NSValue valueWithCGPoint:CGPointMake(i, j + 1)],
-                                       nil];
-                    
-                    for (int i = 0; i < 4; i++) {
-                        NSValue *val = [points objectAtIndex: i];
-                        CGPoint p = [val CGPointValue];
-                        
-                        if (p.x >= 0 && p.x < distances.rows && p.y >= 0 && p.y < distances.cols) {
-                            next.at<uchar>(int(p.x), int(p.y)) = MIN(next.at<uchar>(int(p.x), int(p.y)), iteration + 1);
-                        }
-                    }
-                }
-            }
-        }
-        
-        // we've updated the whole array
-        return [OpenCVWrapper fix_distances: next iteration: iteration + 1];
-    }
-}
+
 
 + (int) bfs: (Mat) img atx: (int) x aty: (int) y iter: (int) depth set: (NSMutableSet*) set {
     if (depth > 10 || img.at<uchar>(x, y) == 0) {
@@ -313,7 +343,7 @@ using namespace cv;
     
     for (int j = 0; j < image.cols; j++) {
         for (int i = 0; i < image.rows; i++) {
-            if (image.at<uchar>(i, j) < 230) {
+            if (image.at<uchar>(i, j) < 150) {
                 output.at<uchar>(i, j) = 0;
             } else {
                 output.at<uchar>(i, j) = 255;

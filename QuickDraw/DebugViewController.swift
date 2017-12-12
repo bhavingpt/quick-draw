@@ -26,35 +26,35 @@ class DebugViewController: UIViewController {
         four.image = cv2.process(one.image, to: two.image)
         var score: Int32;
     
-        /*print("\n\n------------------ basic checks ------------\n\n");
+        print("\n\n------------------ basic checks ------------\n\n");
       
         print("scoring reference house against reference house")
-        score = cv2.score(one.image, to: one.image)
+        score = cv2.hausdorff_wrap(one.image, to: one.image)
         print("received \(score)\n")
         
         print("scoring reference flower against reference flower")
-        score = cv2.score(three.image, to: three.image)
+        score = cv2.hausdorff_wrap(three.image, to: three.image)
         print("received \(score)\n")
         
         print("\n\n------------------ shitty checks ------------\n\n");
-        
-        */print("scoring reference house against shitty house")
-        score = cv2.score(one.image, to: two.image)
+ 
+        print("scoring shitty house against reference house")
+        score = cv2.hausdorff_wrap(two.image, to: one.image)
         print("received \(score)\n")
         
-        /*print("scoring reference flower against shitty house")
-        score = cv2.score(three.image, to: two.image)
+        print("scoring shitty house against reference flower")
+        score = cv2.hausdorff_wrap(two.image, to: three.image)
         print("received \(score)\n")
         
         print("\n\n------------------ modified checks ------------\n\n");
         
-        print("scoring reference house against modified house")
-        score = cv2.score(one.image, to: four.image)
+        print("scoring modified house against reference house")
+        score = cv2.hausdorff_wrap(four.image, to: one.image)
         print("received \(score)\n")
         
-        print("scoring reference flower against modified house")
-        score = cv2.score(three.image, to: four.image)
-        print("received \(score)\n")*/
+        print("scoring modified house against reference flower")
+        score = cv2.hausdorff_wrap(four.image, to: three.image)
+        print("received \(score)\n")
     }
 
     override func didReceiveMemoryWarning() {
