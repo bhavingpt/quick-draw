@@ -12,9 +12,15 @@
 
 @interface OpenCVWrapper : NSObject
 
+// methods for use
+
 - (NSString *) openCVVersionString;
 - (int) score: (UIImage *) inputImg to: (UIImage *) targetImg;
-- (UIImage *) process: (UIImage *) target_img to: (UIImage *) input_img;
+
+// methods for debugging
+
 - (int) hausdorff_wrap: (UIImage *) test to: (UIImage *) reference_img;
+- (UIImage *) process: (UIImage *) target_img to: (UIImage *) input_img;
+
 
 @end

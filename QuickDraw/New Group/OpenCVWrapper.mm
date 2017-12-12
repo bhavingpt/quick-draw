@@ -36,14 +36,6 @@ using namespace cv;
     return [NSString stringWithFormat:@"OpenCV Version %s", CV_VERSION];
 }
 
-- (UIImage *) test_dt: (UIImage *) input {
-    Mat processed = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: input]]];
-    Mat distances = processed.clone();
-    distances = [OpenCVWrapper fix_distances: distances iteration: 0];
-    
-    return [OpenCVWrapper convert_back: distances];
-}
-
 - (int) score: (UIImage *) inputImg to: (UIImage *) targetImg {
     Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: targetImg]]];
     Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: inputImg]]];
@@ -63,9 +55,6 @@ using namespace cv;
     Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: inputImg]]];
     
     int a = [OpenCVWrapper hausdorff: input to: target];
-    
-    //printf("\n    starting flipped hausdorff distance\n");
-    
     int b = [OpenCVWrapper hausdorff: target to: input];
     
     printf("     scores were %d and %d\n", a, b);
@@ -73,10 +62,12 @@ using namespace cv;
 }
 
 
+/* ------------------------------- Below here are top-level helper methods -------------------------------*/
+
 + (int) hausdorff: (Mat) test to: (Mat) reference_img {
     Mat distances = reference_img.clone();
     distances = [OpenCVWrapper fix_distances: distances iteration: 0];
- 
+    
     int current_max = 0;
     
     for (int j = 0; j < test.cols; j++) {
@@ -86,8 +77,11 @@ using namespace cv;
                 int y = int((float(j) / test.cols) * distances.cols);
                 
                 if (distances.at<uchar>(x, y) > current_max) {
-                    current_max = distances.at<uchar>(x, y);
-                    //printf("    point (%d, %d) in test image had a distance of %d\n", i, j, current_max);
+                    if (distances.at<uchar>(x, y) == 255) {
+                        current_max = int(float(current_max + distances.at<uchar>(x, y)) / 2); // TODO better ways of handling efficiency
+                    } else {
+                        current_max = distances.at<uchar>(x, y);
+                    }
                 }
             }
         }
@@ -128,19 +122,6 @@ using namespace cv;
         return [OpenCVWrapper fix_distances: next iteration: iteration + 1];
     }
 }
-
-- (UIImage *) process: (UIImage *) target_img to: (UIImage *) input_img {
-    // gray out, convert, and threshold both images
-    Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: target_img]]];
-    Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: input_img]]];
-
-    input = [OpenCVWrapper shift: target to: input];
-    input = [OpenCVWrapper scale: target to: input];
-    
-    return [OpenCVWrapper convert_back: input];
-}
-
-/* ------------------------------- Below here are top-level helper methods -------------------------------*/
 
 + (cv::Mat) shift: (cv::Mat) target to: (cv::Mat) input {
     int* target_center = [OpenCVWrapper get_center: target];
@@ -201,6 +182,17 @@ using namespace cv;
     }
 
     return scaled;
+}
+
+- (UIImage *) process: (UIImage *) target_img to: (UIImage *) input_img {
+    // gray out, convert, and threshold both images
+    Mat target = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: target_img]]];
+    Mat input = [OpenCVWrapper threshold: [OpenCVWrapper convert: [OpenCVWrapper gray: input_img]]];
+    
+    input = [OpenCVWrapper shift: target to: input];
+    input = [OpenCVWrapper scale: target to: input];
+    
+    return [OpenCVWrapper convert_back: input];
 }
 
 /* ------------------------------- Below here are mid-level helper methods -------------------------------*/
@@ -273,56 +265,6 @@ using namespace cv;
 }
 
 /* ------------------------------- Below here are bottom-level helper methods -------------------------------*/
-
-
-
-+ (int) bfs: (Mat) img atx: (int) x aty: (int) y iter: (int) depth set: (NSMutableSet*) set {
-    if (depth > 10 || img.at<uchar>(x, y) == 0) {
-        return depth;
-    } else {
-        NSMutableArray* next = [NSMutableArray new];
-        NSMutableArray* next_vals = [NSMutableArray new];
-        NSArray* points = [NSArray arrayWithObjects:
-                           [NSValue valueWithCGPoint:CGPointMake(x - 1, y)],
-                           [NSValue valueWithCGPoint:CGPointMake(x + 1, y)],
-                           [NSValue valueWithCGPoint:CGPointMake(x, y - 1)],
-                           [NSValue valueWithCGPoint:CGPointMake(x, y + 1)],
-                           nil];
-        
-        for (int i = 0; i < 4; i++) {
-            NSValue *val = [points objectAtIndex: i];
-            CGPoint p = [val CGPointValue];
-            
-            if (p.x >= 0 && p.x < img.rows && p.y >= 0 && p.y < img.cols && ![set containsObject: val]) {
-                [next addObject: val];
-            }
-        }
-        
-        for (int i = 0; i < [next count]; i++) {
-            NSValue *val = [next objectAtIndex: i];
-            CGPoint p = [val CGPointValue];
-            
-            NSMutableSet* new_set = [NSMutableSet setWithSet: set];
-            [new_set addObject: val];
-            
-            int returned = [OpenCVWrapper bfs: img atx: int(p.x) aty: int(p.y) iter: depth + 1 set: new_set];
-            NSNumber* wrap = [NSNumber numberWithInt: returned];
-            [next_vals addObject: wrap];
-        }
-        
-        int best_val = 20;
-        for (int i = 0; i < [next_vals count]; i++) {
-            NSNumber* wrap = [next_vals objectAtIndex: i];
-            int this_val = int([wrap integerValue]);
-            if (this_val < best_val) {
-                best_val = this_val;
-            }
-        }
-        
-        return best_val;
-    }
-    
-}
 
 + (Mat) threshold: (Mat) image {
     Mat output(image.size(), image.type());
@@ -489,8 +431,55 @@ using namespace cv;
     return finalImage;
 }
 
-/* ------------------------------- Below here are failed similarity attempts -------------------------------*/
+/* ------------------------------- Below here are failed things -------------------------------*/
 
++ (int) bfs: (Mat) img atx: (int) x aty: (int) y iter: (int) depth set: (NSMutableSet*) set {
+    if (depth > 10 || img.at<uchar>(x, y) == 0) {
+        return depth;
+    } else {
+        NSMutableArray* next = [NSMutableArray new];
+        NSMutableArray* next_vals = [NSMutableArray new];
+        NSArray* points = [NSArray arrayWithObjects:
+                           [NSValue valueWithCGPoint:CGPointMake(x - 1, y)],
+                           [NSValue valueWithCGPoint:CGPointMake(x + 1, y)],
+                           [NSValue valueWithCGPoint:CGPointMake(x, y - 1)],
+                           [NSValue valueWithCGPoint:CGPointMake(x, y + 1)],
+                           nil];
+        
+        for (int i = 0; i < 4; i++) {
+            NSValue *val = [points objectAtIndex: i];
+            CGPoint p = [val CGPointValue];
+            
+            if (p.x >= 0 && p.x < img.rows && p.y >= 0 && p.y < img.cols && ![set containsObject: val]) {
+                [next addObject: val];
+            }
+        }
+        
+        for (int i = 0; i < [next count]; i++) {
+            NSValue *val = [next objectAtIndex: i];
+            CGPoint p = [val CGPointValue];
+            
+            NSMutableSet* new_set = [NSMutableSet setWithSet: set];
+            [new_set addObject: val];
+            
+            int returned = [OpenCVWrapper bfs: img atx: int(p.x) aty: int(p.y) iter: depth + 1 set: new_set];
+            NSNumber* wrap = [NSNumber numberWithInt: returned];
+            [next_vals addObject: wrap];
+        }
+        
+        int best_val = 20;
+        for (int i = 0; i < [next_vals count]; i++) {
+            NSNumber* wrap = [next_vals objectAtIndex: i];
+            int this_val = int([wrap integerValue]);
+            if (this_val < best_val) {
+                best_val = this_val;
+            }
+        }
+        
+        return best_val;
+    }
+    
+}
 
 - (int) old_score: (UIImage *) inputOne to: (UIImage *) inputTwo {
     UIImage* inputGray = [OpenCVWrapper gray: inputOne];
