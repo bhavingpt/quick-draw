@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		BAA1447744A4CA9C298A19B6 /* Pods_QuickDraw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831A0F4416AD3F1717CD65B2 /* Pods_QuickDraw.framework */; };
+		F15E4F5F1FE335FA00DD0463 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15E4F5E1FE335FA00DD0463 /* SettingsViewController.swift */; };
+		F15E4F611FE3392E00DD0463 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15E4F601FE3392E00DD0463 /* HomeViewController.swift */; };
+		F15E4F631FE3395F00DD0463 /* StartGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15E4F621FE3395F00DD0463 /* StartGameViewController.swift */; };
+		F15E4F651FE33B4300DD0463 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15E4F641FE33B4300DD0463 /* ProfileViewController.swift */; };
+		F15E4F671FE33B8A00DD0463 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15E4F661FE33B8A00DD0463 /* ShopViewController.swift */; };
+		F15E4F691FE33BDA00DD0463 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15E4F681FE33BDA00DD0463 /* RankingViewController.swift */; };
 		F1919EF71FD5C4E8002D8631 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1919EF61FD5C4E8002D8631 /* UIKit.framework */; };
 		F1A9C1881FD89CF3003AC564 /* clockticking.wav in Resources */ = {isa = PBXBuildFile; fileRef = F1A9C1871FD89CEB003AC564 /* clockticking.wav */; };
 		F1ABCD501FDB8DD3006373E2 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ABCD4F1FDB8DD3006373E2 /* DebugViewController.swift */; };
@@ -26,6 +32,12 @@
 		1216F485070499B66CFB253D /* Pods-QuickDraw.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickDraw.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw.debug.xcconfig"; sourceTree = "<group>"; };
 		831A0F4416AD3F1717CD65B2 /* Pods_QuickDraw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickDraw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA4DA89463FD8B2610902E9F /* Pods-QuickDraw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickDraw.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuickDraw/Pods-QuickDraw.release.xcconfig"; sourceTree = "<group>"; };
+		F15E4F5E1FE335FA00DD0463 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F15E4F601FE3392E00DD0463 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F15E4F621FE3395F00DD0463 /* StartGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameViewController.swift; sourceTree = "<group>"; };
+		F15E4F641FE33B4300DD0463 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F15E4F661FE33B8A00DD0463 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		F15E4F681FE33BDA00DD0463 /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
 		F1919EF61FD5C4E8002D8631 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F1A9C1871FD89CEB003AC564 /* clockticking.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = clockticking.wav; sourceTree = "<group>"; };
 		F1ABCD4F1FDB8DD3006373E2 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +111,12 @@
 				F1D4C1E31FD316DB00F28B7F /* Wrappers */,
 				F1B12D4B1FCA1D3D002C55F0 /* AppDelegate.swift */,
 				F1B12D4F1FCA1D3D002C55F0 /* Main.storyboard */,
+				F15E4F681FE33BDA00DD0463 /* RankingViewController.swift */,
+				F15E4F661FE33B8A00DD0463 /* ShopViewController.swift */,
+				F15E4F641FE33B4300DD0463 /* ProfileViewController.swift */,
+				F15E4F621FE3395F00DD0463 /* StartGameViewController.swift */,
+				F15E4F601FE3392E00DD0463 /* HomeViewController.swift */,
+				F15E4F5E1FE335FA00DD0463 /* SettingsViewController.swift */,
 				F1B12D601FCA1D82002C55F0 /* ArtViewController.swift */,
 				F1F5EF4B1FD8709700289ED4 /* ProgressView.swift */,
 				F1B12D551FCA1D3D002C55F0 /* Assets.xcassets */,
@@ -256,11 +274,17 @@
 			files = (
 				F1B12D611FCA1D82002C55F0 /* ArtViewController.swift in Sources */,
 				F1ABCD501FDB8DD3006373E2 /* DebugViewController.swift in Sources */,
+				F15E4F691FE33BDA00DD0463 /* RankingViewController.swift in Sources */,
 				F1D4C1E71FD316FC00F28B7F /* OpenCVWrapper.mm in Sources */,
+				F15E4F631FE3395F00DD0463 /* StartGameViewController.swift in Sources */,
 				F1B12D4C1FCA1D3D002C55F0 /* AppDelegate.swift in Sources */,
 				F1B12D631FCA210B002C55F0 /* ViewController.swift in Sources */,
+				F15E4F651FE33B4300DD0463 /* ProfileViewController.swift in Sources */,
+				F15E4F611FE3392E00DD0463 /* HomeViewController.swift in Sources */,
+				F15E4F671FE33B8A00DD0463 /* ShopViewController.swift in Sources */,
 				F1B12D541FCA1D3D002C55F0 /* QuickDraw.xcdatamodeld in Sources */,
 				F1F5EF4C1FD8709700289ED4 /* ProgressView.swift in Sources */,
+				F15E4F5F1FE335FA00DD0463 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
