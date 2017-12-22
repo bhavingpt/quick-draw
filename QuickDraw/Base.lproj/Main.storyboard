@@ -11,6 +11,7 @@
     <customFonts key="customFonts">
         <array key="HiraginoKakuGothic.ttc">
             <string>HiraginoSans-W3</string>
+            <string>HiraginoSans-W6</string>
         </array>
     </customFonts>
     <scenes>
@@ -51,7 +52,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0eb-3g-zU8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1313" y="1367"/>
+            <point key="canvasLocation" x="655" y="1367"/>
         </scene>
         <!--Profile-->
         <scene sceneID="m2q-2H-Iy9">
@@ -60,10 +61,10 @@
                     <view key="view" contentMode="scaleToFill" id="oig-1w-t2d">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.76762152777777781" green="0.23336790200307073" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.66666666669999997" green="0.2901960784" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="dpd-8y-pDu"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" id="MvO-Pu-HHj"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="guy" id="MvO-Pu-HHj"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRe-b6-nLh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -72,14 +73,17 @@
         <!--Home View Controller-->
         <scene sceneID="kH0-hc-a3F">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yjg-Hu-dAW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController id="7z1-eo-of5" customClass="HomeViewController" customModule="QuickDraw" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tAc-9s-NLq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.50588235294117645" green="0.22745098039215686" blue="0.52549019607843139" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <outlet property="tabBar" destination="tAc-9s-NLq" id="pyO-ck-tAf"/>
                         <segue destination="bpi-z7-KMb" kind="relationship" relationship="viewControllers" id="k4V-wb-dbe"/>
                         <segue destination="ftK-ov-ZvE" kind="relationship" relationship="viewControllers" id="u9X-Jq-dCP"/>
                         <segue destination="1uV-Rr-U9x" kind="relationship" relationship="viewControllers" id="uEg-zb-fTz"/>
@@ -87,24 +91,107 @@
                         <segue destination="W0u-TZ-bP0" kind="relationship" relationship="viewControllers" id="FOh-mr-dDI"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yjg-Hu-dAW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1518" y="-340"/>
         </scene>
-        <!--Start Game-->
+        <!--Start Game View Controller-->
         <scene sceneID="UeF-1m-kgB">
             <objects>
                 <viewController id="bpi-z7-KMb" customClass="StartGameViewController" customModule="QuickDraw" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GhH-lh-4fS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.80668402780000004" blue="0.79996166089999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7K-EJ-zGa">
+                                <rect key="frame" x="16" y="82" width="166" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.98431372549019602" green="0.42352941176470588" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Free coins">
+                                    <color key="titleShadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhm-z3-HC5">
+                                <rect key="frame" x="193" y="81" width="166" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.15234034586056641" green="0.46224468954248366" blue="0.90662615740740737" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="13"/>
+                                <state key="normal" title="Connect to Facebook">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-hA-MfT">
+                                <rect key="frame" x="16" y="142" width="343" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0065943287059999998" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="17"/>
+                                <state key="normal" title="New Game">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N1j-s7-H08">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kVw-ce-beW">
+                                        <rect key="frame" x="261" y="28" width="86" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="give_ink" translatesAutoresizingMaskIntoConstraints="NO" id="tmg-sO-uPS">
+                                                <rect key="frame" x="-12" y="-13" width="35" height="41"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="200" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kb1-R7-303">
+                                                <rect key="frame" x="0.0" y="0.0" width="86" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="11"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.76762152780000004" green="0.23336790199999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w2K-sY-rxS">
+                                        <rect key="frame" x="31" y="27" width="86" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utk-Q8-4Jo">
+                                                <rect key="frame" x="0.0" y="0.0" width="86" height="23"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="11"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="give_con" translatesAutoresizingMaskIntoConstraints="NO" id="CHT-5l-J6G">
+                                                <rect key="frame" x="-8" y="-3" width="34" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.76762152780000004" green="0.23336790199999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.50588235290000005" green="0.2274509804" blue="0.52549019610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.66666666666666663" green="0.29019607843137252" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="y8Z-57-OE8"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Start Game" id="chm-e1-6xk"/>
+                    <tabBarItem key="tabBarItem" title="" image="home" selectedImage="home" id="chm-e1-6xk">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="coins" destination="R7K-EJ-zGa" id="rdL-K1-OZs"/>
+                        <outlet property="coinsOwned" destination="kVw-ce-beW" id="jld-xn-pHs"/>
+                        <outlet property="facebook" destination="nhm-z3-HC5" id="Hhl-82-bXJ"/>
+                        <outlet property="inkOwned" destination="w2K-sY-rxS" id="sGj-mR-ww9"/>
+                        <outlet property="newGame" destination="WYU-hA-MfT" id="c4J-Fp-5CX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HzS-rB-IFQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1519" y="-1219"/>
+            <point key="canvasLocation" x="-1519.2" y="-1219.3403298350825"/>
         </scene>
         <!--Settings-->
         <scene sceneID="aVb-y9-KHO">
@@ -113,10 +200,10 @@
                     <view key="view" contentMode="scaleToFill" id="rFb-iw-Ip4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.66666666669999997" green="0.2901960784" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="38T-6T-QMA"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" image="small_gear" selectedImage="small_gear" id="xY1-Pu-T1d">
+                    <tabBarItem key="tabBarItem" title="Settings" image="menu" selectedImage="menu" id="xY1-Pu-T1d">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                 </viewController>
@@ -131,10 +218,10 @@
                     <view key="view" contentMode="scaleToFill" id="Vp6-Bc-ac6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.75740740740740742" green="0.71323421428118805" blue="0.10157937885802472" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.66666666669999997" green="0.2901960784" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="ZjN-aP-gA6"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Ranking" id="EAU-lG-Eln"/>
+                    <tabBarItem key="tabBarItem" title="Ranking" image="bars" id="EAU-lG-Eln"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fUX-Jd-ItQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -147,10 +234,10 @@
                     <view key="view" contentMode="scaleToFill" id="5aj-Wr-SuR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.4618267522531937" green="0.17439144349065502" blue="0.81313657407407403" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.66666666669999997" green="0.2901960784" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="z86-Qa-PGP"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Shop" id="zgS-jR-FVI"/>
+                    <tabBarItem key="tabBarItem" title="Shop" image="shop" id="zgS-jR-FVI"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P0g-lW-D4H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -304,12 +391,18 @@
         <image name="EraserIcon" width="570" height="563"/>
         <image name="akshaykg" width="419" height="431"/>
         <image name="array" width="600" height="454"/>
+        <image name="bars" width="25" height="24"/>
         <image name="bhavingpt" width="905" height="846"/>
         <image name="divider" width="640" height="752"/>
         <image name="empty" width="183" height="275"/>
+        <image name="give_con" width="2400" height="2399"/>
+        <image name="give_ink" width="898" height="1280"/>
+        <image name="guy" width="25" height="25"/>
+        <image name="home" width="25" height="25"/>
+        <image name="menu" width="25" height="23"/>
         <image name="menu_icon" width="1080" height="1080"/>
         <image name="settings_icon" width="512" height="512"/>
-        <image name="small_gear" width="34" height="33"/>
+        <image name="shop" width="25" height="25"/>
         <image name="trophy" width="512" height="512"/>
     </resources>
 </document>

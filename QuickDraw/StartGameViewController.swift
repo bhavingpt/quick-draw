@@ -10,8 +10,22 @@ import UIKit
 
 class StartGameViewController: UIViewController {
 
+    @IBOutlet weak var coins: UIButton!
+    @IBOutlet weak var facebook: UIButton!
+    @IBOutlet weak var newGame: UIButton!
+    @IBOutlet weak var coinsOwned: UIView!
+    @IBOutlet weak var inkOwned: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Shadow and Radius for Circle Button
+        coins.layer.cornerRadius = 20
+        facebook.layer.cornerRadius = 20
+        newGame.layer.cornerRadius = 20
+        
+        coinsOwned.layer.cornerRadius = 7
+        inkOwned.layer.cornerRadius = 7
 
         // Do any additional setup after loading the view.
     }

@@ -9,9 +9,20 @@
 import UIKit
 
 class HomeViewController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let light_purple = UIColor.init(red: CGFloat(170)/255, green: CGFloat(74)/255, blue: CGFloat(182)/255, alpha: 1.0)
+
+        tabBar.unselectedItemTintColor = light_purple
+        tabBar.tintColor = UIColor.white
+        let tabBarItems = tabBar.items! as [UITabBarItem]
+        for item in tabBarItems {
+            item.title = nil
+            item.imageInsets = UIEdgeInsetsMake(6,0,-6,0)
+        }
+        
 
         // Do any additional setup after loading the view.
     }
