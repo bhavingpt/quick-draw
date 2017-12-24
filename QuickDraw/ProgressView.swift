@@ -25,7 +25,8 @@ class ProgressView: UIView {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         ctx.addRect(rect)
         
-        let fill: UIColor = UIColor(red: CGFloat(0.3789), green: CGFloat(0.4727), blue: CGFloat(0.996), alpha: 1)
+        let light_purple = UIColor.init(red: CGFloat(50)/255, green: CGFloat(162)/255, blue: CGFloat(208)/255, alpha: 1.0)
+        let fill: UIColor = light_purple
         ctx.setFillColor(wipe ? UIColor.white.cgColor : fill.cgColor)
         ctx.fill(rect)
         

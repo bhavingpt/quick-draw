@@ -72,6 +72,7 @@ class ArtViewController: UIViewController {
         
         try! timeEffect = AVAudioPlayer(contentsOf: alertSound)
         timeEffect?.numberOfLoops = -1
+        timeEffect?.prepareToPlay()
     
         print (cv2.openCVVersionString())
         

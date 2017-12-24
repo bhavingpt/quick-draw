@@ -13,7 +13,7 @@ class HomeViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let light_purple = UIColor.init(red: CGFloat(170)/255, green: CGFloat(74)/255, blue: CGFloat(182)/255, alpha: 1.0)
+        let light_purple = UIColor.init(red: CGFloat(50)/255, green: CGFloat(162)/255, blue: CGFloat(208)/255, alpha: 1.0)
 
         tabBar.unselectedItemTintColor = light_purple
         tabBar.tintColor = UIColor.white
